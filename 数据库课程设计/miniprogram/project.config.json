@@ -1,5 +1,5 @@
 {
-  "appid": "wx484ff8f086174875",
+  "appid": " ",  # 从微信开发平台后台获取
   "compileType": "miniprogram",
   "libVersion": "3.5.6",
   "miniprogramRoot": "miniprogram/",
