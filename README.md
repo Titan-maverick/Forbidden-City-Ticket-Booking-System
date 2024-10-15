@@ -46,6 +46,8 @@
 该项目
 ├─GugongAdministrator/pear-admin-flask  # 管理员前后端的实现 来源于https://github.com/pearadmin/pear-admin-flask
 │
+├─MySQL_database  # 数据库测试与visio图
+│
 ├─djangoProject  # 订票系统后端（Django）
 │  
 └─数据库课程设计  # 微信小程序前端 (微信小程序开发工具)
