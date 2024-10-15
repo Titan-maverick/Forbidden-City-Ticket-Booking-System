@@ -227,8 +227,31 @@ djangoProject用command内的命令在终端启动
 获得密钥, 将djangoProject启动采用的端口号设置到公网
 #### 前端
 用微信开发工具打卡数据库课程设计文件,直接编译,在调试窗口进行操作
+[平台链接]([https://ngrok.com/](https://mp.weixin.qq.com/)).
 #### 管理员平台
 GugongAdministrator直接运行app.py
 
 
-#### 预览项目
+## 预览项目
+### 管理员平台
+<div align="center">
+  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/administrator_run.png" />
+</div>
+<div align="center">
+  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/administrator_interface.png" />
+</div>
+
+### Django后端
+<div align="center">
+  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/django_run.png" />
+</div>
+
+### ngork
+<div align="center">
+  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/ngork_run.png" />
+</div>
+
+### 微信开发工具
+<div align="center">
+  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/wx_run.png" />
+</div>
