@@ -204,28 +204,30 @@ project.config.json里面输入你的appid
 ## 如何快速上手这个项目？
 - 请参考下方的启动指南:
 #### 项目安装
-# 安 装
-pip install -r requirement\requirement-dev.txt
-
-# 配 置
-.env
-
-
-
-#### Venv 安装
-
-```bash
-python -m venv venv
 ```
+git clone https://github.com/Titan-maverick/Forbidden-City-Ticket-Booking-System.git
+```
+或者直接下载zip, 然后GugongAdministrator,djangoProject用支持python的编译器打开(pycharm), 数据库课程设计用微信开发工具打开
+##### 配置环境
+GugongAdministrator,djangoProject
+```
+pip install -r requirements.txt
+```
+##### 配置数据库
+用MySQL_database文件夹下面的数据库创建与删除.sql创建数据库,然后配置好djangoProject,最后用command.md里面的三,四条命令对表进行构建
+
 
 ### 如何启动项目
+GugongAdministrator直接运行app.py
+djangoProject用command内的命令在终端启动
+##### 内网穿透
+推荐ngork
 
 
 #### 运行项目
 
 ```bash
 
-flask init
 ```
 
 
