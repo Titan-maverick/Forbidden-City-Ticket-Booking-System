@@ -210,4 +210,3 @@ class Command(BaseCommand):
         order.status = '已取消'  # 更新订单状态为“已取消”
         order.save()  # 保存订单状态
         print(f'Order {order.order_id} status updated to 已取消')  # 确认更新
-

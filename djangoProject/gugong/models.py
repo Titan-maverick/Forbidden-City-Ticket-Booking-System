@@ -5,11 +5,12 @@ from django.db import models
 # 用户模块
 class User(models.Model):
     user_id = models.CharField(max_length=128, primary_key=True)  # 设置最大长度为 128，或其他合适的值
-    phone_number = models.CharField(max_length=15, null=True, blank=True)  # 电话号码)
+    phone_number = models.CharField(max_length=15, unique=True, null=True, blank=True)  # 电话号码)
     registration_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'Users'
+        # managed = False  # 禁用 Django 的自动迁移功能
 
 
 class FrequentVisitor(models.Model):
@@ -68,6 +69,7 @@ class FrequentVisitor(models.Model):
 
     class Meta:
         db_table = 'FrequentVisitors'
+        # managed = False
 
 
 # 购票系统模块
@@ -79,6 +81,7 @@ class TicketType(models.Model):
 
     class Meta:
         db_table = 'TicketTypes'
+        # managed = False
 
 
 class Order(models.Model):
@@ -92,6 +95,7 @@ class Order(models.Model):
 
     class Meta:
         db_table = 'Orders'
+        # managed = False
     def __str__(self):
         return f"Order {self.order_id} - Status: {self.status}"
 
@@ -183,6 +187,7 @@ class OrderDetail(models.Model):
 
     class Meta:
         db_table = 'OrderDetails'
+        # managed = False
 
 
 class BookingRecord(models.Model):
@@ -194,7 +199,7 @@ class BookingRecord(models.Model):
 
     class Meta:
         db_table = 'BookingRecords'
-
+        # managed = False
 
 # 销售数据模块
 class TicketSalesData(models.Model):
@@ -209,6 +214,7 @@ class TicketSalesData(models.Model):
     class Meta:
         db_table = 'TicketSalesData'
         unique_together = ('sale_date', 'select_time')  # 确保同一天同一时间段唯一
+        # managed = False
 
 
 class DailyTicketSale(models.Model):
@@ -222,6 +228,7 @@ class DailyTicketSale(models.Model):
     class Meta:
         db_table = 'DailyTicketSale'
         unique_together = ('ticket_type_id', 'date', 'select_time')  # 确保同一天同一时间段唯一
+        # managed = False
 
 
 # 每日余票更新模块
@@ -246,6 +253,7 @@ class DailyTicketQuota(models.Model):
     class Meta:
         db_table = 'DailyTicketQuota'
         unique_together = ('date', 'museum_ticket_type', 'select_time')  # 唯一约束
+        # managed = False
 
     @classmethod
     def load_daily_quota(cls, specific_date, available_counts):
@@ -257,3 +265,26 @@ class DailyTicketQuota(models.Model):
                     select_time=time[0],
                     defaults={'available_tickets': available_counts.get((ticket_type[0], time[0]), 0)},
                 )
+
+
+# 年票模块
+class YearTicketQuota(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='year_ticket_quota')
+    available_tickets = models.IntegerField(default=0)  # 可用余票数量
+    class Meta:
+        db_table = 'YearTicketQuota'
+        # managed = False
+
+
+class YearTicketData(models.Model):
+    type_name = models.CharField(max_length=30)  # 类型名称
+    date = models.DateField()  # 售卖日期
+    select_time = models.CharField(max_length=10)  # 选择时间（上午或下午）
+    ticket_count = models.IntegerField(default=0)  # 售卖的数量
+
+    class Meta:
+        db_table = 'YearTicketData'
+        constraints = [
+            models.UniqueConstraint(fields=['date', 'select_time'], name='unique_date_select_time')
+        ]
+        # managed = False

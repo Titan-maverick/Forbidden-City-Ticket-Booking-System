@@ -21,7 +21,9 @@ from gugong.views import (success_view, WeChatLoginView,
                           UpdatePhoneView, UpdateVisitorView,
                           DeleteVisitorView, AddVisitorView, ComfirmOrdersView,
                           UserOrdersView, PayView, RefundView,
-                          AvailableTicketsView, OtherAvailableTicketsView)
+                          AvailableTicketsView, OtherAvailableTicketsView,
+                          ComfirmYearTicketsOrdersView, RefundYearTicketView,
+                          YearTicketsBalanceQueryView)
 
 urlpatterns = [
     path('', success_view, name='success_view'),  # 空路径
@@ -36,4 +38,7 @@ urlpatterns = [
     path('refund/', RefundView.as_view(), name='refund'),
     path('get-available-tickets/', AvailableTicketsView.as_view(), name='get-available-tickets'),
     path('get-available-othertickets/', OtherAvailableTicketsView.as_view(), name='get-available-othertickets'),
+    path('comfirm-yeartickets-orders/', ComfirmYearTicketsOrdersView.as_view(), name='comfirm-yeartickets-orders'),
+    path('refund-year-ticket/', RefundYearTicketView.as_view(), name='refund-year-ticket'),
+    path('year-tickets-balance-query/', YearTicketsBalanceQueryView.as_view(), name='year-tickets-balance-query'),
 ]

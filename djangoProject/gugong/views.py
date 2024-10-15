@@ -14,7 +14,7 @@ from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.db import transaction
 from .models import User, Order, FrequentVisitor, BookingRecord, OrderDetail, TicketType, DailyTicketQuota, \
-    TicketSalesData, DailyTicketSale
+    TicketSalesData, DailyTicketSale, YearTicketQuota, YearTicketData
 
 # Create your views here.
 
@@ -860,10 +860,12 @@ class AvailableTicketsView(View):
         data = json.loads(request.body)
         selectedDate = data.get('selectedDate')
 
-        # 解析字符串为日期对象
-        date_obj = datetime.datetime.strptime(selectedDate, "%Y年%m月%d日")
-        # 格式化为 YYYY-MM-DD
-        formatted_date = date_obj.strftime("%Y-%m-%d")
+                # 解析字符串为日期对象
+        try:
+            date_obj = datetime.datetime.strptime(selectedDate, "%Y年%m月%d日")
+            formatted_date = date_obj.strftime("%Y-%m-%d")  # 格式化为 YYYY-MM-DD
+        except ValueError:
+            return JsonResponse({'error': '日期格式不正确'}, status=400)
 
         # 根据 formatted_date 获取余票信息
         try:
@@ -908,10 +910,12 @@ class OtherAvailableTicketsView(View):
         selectedDate = data.get('selectedDate')
         selectedTime = data.get('selectedTime')
 
-        # 解析字符串为日期对象
-        date_obj = datetime.datetime.strptime(selectedDate, "%Y年%m月%d日")
-        # 格式化为 YYYY-MM-DD
-        formatted_date = date_obj.strftime("%Y-%m-%d")
+                # 解析字符串为日期对象
+        try:
+            date_obj = datetime.datetime.strptime(selectedDate, "%Y年%m月%d日")
+            formatted_date = date_obj.strftime("%Y-%m-%d")  # 格式化为 YYYY-MM-DD
+        except ValueError:
+            return JsonResponse({'error': '日期格式不正确'}, status=400)
 
         # 根据 formatted_date 获取余票信息
         try:
@@ -932,3 +936,259 @@ class OtherAvailableTicketsView(View):
 
         except DailyTicketQuota.DoesNotExist:
             return JsonResponse({'error': '该日期的票务信息不存在'}, status=404)
+
+
+# 年票订单确认
+@method_decorator(csrf_exempt, name='dispatch')
+class ComfirmYearTicketsOrdersView(View):
+    def post(self, request):
+        # 获取并解码 token
+        token = request.headers.get('Authorization')
+        if token and token.startswith('Bearer '):
+            token = token.split(' ')[1]  # 获取实际的 token 部分
+        if not token:
+            return JsonResponse({'error': '未提供 token'}, status=401)
+
+        try:
+            openid = decode_jwt_token(token)
+        except jwt.ExpiredSignatureError:
+            print('Token expired')
+            return JsonResponse({'error': '无效的 token'}, status=401)
+        except jwt.InvalidTokenError as e:
+            print('Invalid token error:', e)
+            return JsonResponse({'error': '无效的 token'}, status=401)
+
+        # 获取请求数据
+        data = json.loads(request.body)
+        selectedDate = data.get('selectedDate')
+        selectedTime = data.get('selectedTime')
+        phone_number = data.get('phone_number')
+        audience_list = data.get('audienceList', [])
+
+        # 解析字符串为日期对象
+        try:
+            date_obj = datetime.datetime.strptime(selectedDate, "%Y年%m月%d日")
+            formatted_date = date_obj.strftime("%Y-%m-%d")  # 格式化为 YYYY-MM-DD
+        except ValueError:
+            return JsonResponse({'error': '日期格式不正确'}, status=400)
+
+        # 使用事务来确保操作的原子性
+        try:
+            with transaction.atomic():  # 启动一个事务
+                # 根据用户 ID 获取年票配额信息
+                ticket_quota = YearTicketQuota.objects.get(user_id=openid)
+
+                # 获取可用票数量
+                available_tickets = ticket_quota.available_tickets
+
+                # 检查可用票是否大于 0
+                if available_tickets > 0:
+                    # 减少可用票数量
+                    ticket_quota.available_tickets -= 1
+                    ticket_quota.save()  # 保存更改
+
+                    # 在 YearTicketData 中创建新的记录
+                    year_ticket_data, created = YearTicketData.objects.get_or_create(
+                        type_name='故宫年票',
+                        date=formatted_date,
+                        select_time=selectedTime,
+                    )
+                    year_ticket_data.ticket_count += 1
+                    year_ticket_data.save()  # 保存新记录
+
+                    user = User.objects.get(user_id=openid)
+                    # 创建订单
+                    order = Order.objects.create(
+                        user=user,
+                        phone_number=phone_number,
+                        quantity=1,
+                        status='未使用',
+                        order_date=f"{selectedDate}",
+                        select_time=f"{selectedTime}",
+                    )
+                    # 获取北京时间
+                    purchase_date = timezone.now().astimezone(pytz.timezone('Asia/Shanghai'))  # 获取当前时间并转换为北京时间
+                    # 格式化时间为 "YYYY年MM月DD日HH:MM"
+                    formatted_purchase_date = purchase_date.strftime('%Y年%m月%d日%H:%M')
+
+                    # 创建订票记录
+                    BookingRecord.objects.create(
+                        user=user,
+                        order=order,
+                        quantity=1,
+                        purchase_date=formatted_purchase_date  # 记录购买时间
+                    )
+                    # 创建订单详情
+                    if audience_list:  # 确保观众列表不为空
+                        OrderDetail.objects.create(
+                            order=order,
+                            name_1=audience_list[0].get('name', ''),
+                            id_card_1=audience_list[0].get('idNumber', ''),
+                            id_type_1=audience_list[0].get('selectedIdTypeIndex', ''),
+                            audience_ticket_type_id_1_id=14,
+                        )
+                    # 更新售票数据
+                    sales_data, created = TicketSalesData.objects.get_or_create(
+                        sale_date=formatted_date,
+                        select_time=selectedTime,
+                        defaults={
+                            'amount': 0,
+                            'gugong_ticket_count': 0,
+                            'treasure_island_ticket_count': 0,
+                            'clock_museum_ticket_count': 0,
+                            'exhibition_ticket_count': 0,
+                        }
+                    )
+                    sales_data.gugong_ticket_count += 1
+                    ticket_type_ticket_id = TicketType.objects.get(ticket_type_id=14)
+                    daily_sale, created = DailyTicketSale.objects.get_or_create(
+                        ticket_type=ticket_type_ticket_id,
+                        date=formatted_date,
+                        select_time=selectedTime,
+                    )
+                    daily_sale.ticket_count += 1
+                    daily_sale.type_name = ticket_type_ticket_id.type_name
+                    sales_data.save()
+                    daily_sale.save()
+
+                    response_data = {
+                        'available_tickets': ticket_quota.available_tickets,
+                        'message': '购票成功'
+                    }
+                    return JsonResponse(response_data, status=200)
+                else:
+                    return JsonResponse({'error': '可用票数量为 0'}, status=404)
+
+        except YearTicketQuota.DoesNotExist:
+            return JsonResponse({'error': '用户年票配额信息不存在'}, status=404)
+        except Exception as e:
+            print(f'Unexpected error: {e}')
+            return JsonResponse({'error': '系统错误，请稍后再试'}, status=500)
+
+
+# 年票退票
+@method_decorator(csrf_exempt, name='dispatch')
+class RefundYearTicketView(View):
+    def post(self, request):
+        # 获取并解码 token
+        token = request.headers.get('Authorization')
+        if token and token.startswith('Bearer '):
+            token = token.split(' ')[1]
+        if not token:
+            return JsonResponse({'error': '未提供 token'}, status=401)
+
+        try:
+            openid = decode_jwt_token(token)
+        except jwt.ExpiredSignatureError:
+            return JsonResponse({'error': '无效的 token'}, status=401)
+        except jwt.InvalidTokenError:
+            return JsonResponse({'error': '无效的 token'}, status=401)
+
+        # 修改用户的订单信息状态
+        try:
+            # 获取请求数据
+            data = json.loads(request.body)
+            order_id = data.get('order_id')
+            selected_date = data.get('order_date')
+            selected_time = data.get('selected_time')
+
+            # 查找并更新订单状态
+            order = Order.objects.get(order_id=order_id)  # 根据订单 ID 查找订单
+            user_id = order.user_id
+
+            # 修改状态
+            order.status = '已退票'
+            order.save()  # 保存更改
+
+            # 解析字符串为日期对象
+            date_obj = datetime.datetime.strptime(selected_date, "%Y年%m月%d日")
+            # 格式化为 YYYY-MM-DD
+            formatted_date = date_obj.strftime("%Y-%m-%d")
+
+            # 更新售票数据
+            year_ticket_data = YearTicketData.objects.get(
+                type_name='故宫年票', date=formatted_date, select_time=selected_time
+            )
+
+            # 减少年票数据中的票数
+            if year_ticket_data.ticket_count > 0:
+                year_ticket_data.ticket_count -= 1
+                year_ticket_data.save()  # 保存更改
+
+                # 更新用户年票配额
+                quota = YearTicketQuota.objects.get(user_id=user_id)
+                quota.available_tickets += 1
+                quota.save()  # 保存更改
+                # 更新售票数据
+                sales_data, created = TicketSalesData.objects.get_or_create(
+                    sale_date=formatted_date,
+                    select_time=selected_time,
+                    defaults={
+                        'amount': 0,
+                        'gugong_ticket_count': 0,
+                        'treasure_island_ticket_count': 0,
+                        'clock_museum_ticket_count': 0,
+                        'exhibition_ticket_count': 0,
+                    }
+                )
+                sales_data.gugong_ticket_count -= 1
+                ticket_type_ticket_id = TicketType.objects.get(ticket_type_id=14)
+                daily_sale, created = DailyTicketSale.objects.get_or_create(
+                    ticket_type=ticket_type_ticket_id,
+                    date=formatted_date,
+                    select_time=selected_time,
+                )
+                daily_sale.ticket_count -= 1
+                daily_sale.type_name = ticket_type_ticket_id.type_name
+                sales_data.save()
+                daily_sale.save()
+
+                return JsonResponse({'message': '订单状态已更新'}, status=200)
+            else:
+                return JsonResponse({'error': '退票失败，票数不足'}, status=400)
+
+        except Order.DoesNotExist:
+            return JsonResponse({'error': '订单不存在'}, status=404)
+        except YearTicketData.DoesNotExist:
+            return JsonResponse({'error': '年票数据不存在'}, status=404)
+        except YearTicketQuota.DoesNotExist:
+            return JsonResponse({'error': '用户年票配额不存在'}, status=404)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': '请求体格式错误'}, status=400)
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return JsonResponse({'error': '发生未知错误'}, status=500)
+
+
+# 年票查询
+@method_decorator(csrf_exempt, name='dispatch')
+class YearTicketsBalanceQueryView(View):
+    def post(self, request):
+        # 获取并解码 token
+        token = request.headers.get('Authorization')
+        if token and token.startswith('Bearer '):
+            token = token.split(' ')[1]
+        if not token:
+            return JsonResponse({'error': '未提供 token'}, status=401)
+
+        try:
+            openid = decode_jwt_token(token)
+        except jwt.ExpiredSignatureError:
+            return JsonResponse({'error': '无效的 token'}, status=401)
+        except jwt.InvalidTokenError:
+            return JsonResponse({'error': '无效的 token'}, status=401)
+
+        # 查询用户的年票配额
+        try:
+            user = User.objects.get(user_id=openid)
+            quota = YearTicketQuota.objects.get(user_id=user)  # 根据用户查找年票配额
+
+            # 返回可用票数
+            return JsonResponse({'available_tickets': quota.available_tickets}, status=200)
+        except User.DoesNotExist:
+            return JsonResponse({'error': '用户不存在'}, status=404)
+        except YearTicketQuota.DoesNotExist:
+            return JsonResponse({'error': '年票配额不存在'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+

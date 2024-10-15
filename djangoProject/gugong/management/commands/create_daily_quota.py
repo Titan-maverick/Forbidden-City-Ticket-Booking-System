@@ -14,10 +14,12 @@ class Command(BaseCommand):
         date = timezone.datetime.strptime(date_str, '%Y-%m-%d').date()  # 转换为日期对象
         quantities = kwargs['quantities']  # 获取各类型的可用余票数量
 
+        # 检查指定日期的票量记录是否已存在
         if DailyTicketQuota.objects.filter(date=date).exists():
             self.stdout.write(self.style.WARNING('指定日期的票量记录已存在，不会创建新记录。'))
             return
 
+        # 定义票种
         ticket_types = {
             1: '故宫',
             2: '珍宝馆',
@@ -25,6 +27,7 @@ class Command(BaseCommand):
             4: '展览',
         }
 
+        # 创建每日票量记录
         daily_quota_list = [
             DailyTicketQuota(
                 museum_ticket_type=ticket_types[i],
@@ -41,5 +44,6 @@ class Command(BaseCommand):
             ) for i in range(1, 5)
         ]
 
+        # 批量创建每日票量记录
         DailyTicketQuota.objects.bulk_create(daily_quota_list)
         self.stdout.write(self.style.SUCCESS('成功创建每日票量记录'))
