@@ -66,19 +66,24 @@ GugongAdministrator/pear-admin-flask
 │      └─gugong.py  # 故宫数据库结构,方便其他文件调用
 │  ├─views  # 视图部分(只标注了拓展部分)
 │  │   ├─plugin 
-│  │   └─system
+│  │   └─system 
+│  │       ├─__init__.py  # 注册蓝图，以组织和管理多个模块的路由 (拓展时修改) 
+│  │       ├─business_data.py # 营业数据统计
+│  │       ├─business_data_detail.py  # 营业数据详情(按票型分类)
 │  │       ├─insert_ticket_data.py  # 插入、新建余票界面后端逻辑
 │  │       ├─query_sale_data.py  # 根据信息查询游客信息界面后端逻辑
 │  │       ├─query_sale_detail.py  # 售票数据(微观)后端逻辑
 │  │       └─query_tourist.py  # 售票数据查询(宏观)后端逻辑
-│  └─ config.py  # 配置文件对象, 请在这里配置好您的数据库、密钥
+│  └─ config.py  # 配置文件对象, 请在这里配置好您的数据库、密钥!!!
 ├─docs  # 文档说明（占坑）
 ├─migrations  # 迁移文件记录
 ├─plugins  # 
 ├─static  # 静态资源文件
 ├─templates  # 静态模板文件
 │  ├error  # 报错页面
-│  └─system  # 正常的页面(只标注了拓展部分)
+│  └─system  # 正常的页面(只标注了拓展部分)  
+│      ├─business_data  # 营业数据
+│      ├─business_data_detail  # 营业数据详情
 │      ├─insert_ticket_data  # 插入,新建余票界面
 │      ├─query_information  # 根据信息查询游客信息界面
 │      ├─query_sale_data  # 售票数据查询(宏观)
@@ -89,15 +94,16 @@ GugongAdministrator/pear-admin-flask
 └─test.py # 测试文件夹（测试一段字符对应的哈希密码）
 ```
 ####  内置功能
-
+##### 原有:
 - [x] 用户管理：用户是系统操作者，该功能主要完成系统用户配置。
 - [x] 权限管理：配置系统菜单，操作权限，按钮权限标识等。
 - [x] 角色管理：角色菜单权限分配。
 - [x] 操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。
 - [x] 登录日志：系统登录日志记录查询包含登录异常。
-- [x] 文件上传:   图片上传示例
-- [x] 定时任务:   简单的定时任务
-- [x] 管理员操作:   
+- [x] 文件上传:  图片上传示例
+- [x] 定时任务:  简单的定时任务
+##### 新加:
+- [x] 管理员操作: 插入余票,根据多种选项查询游客信息; 查询每日、月、年的售票数据；统计营业数据；插入每天每种门票的数据。
 
 ####  djangoProject项目结构
 ```
@@ -107,12 +113,14 @@ djangoProject
 │  └─ urls.py  # 页面路由设置
 ├─gugong  # 文档说明（占坑）
 │  ├─management  #
-│  │   └─ commands
-│  │         ├─create_daily_quota.py
-│  │         ├─load_ticket_types.py
-│  │         ├─refund_order.py
-│  │         ├─update_daily_quota.py
-│  │         └─update_order_status.py
+│  │   └─ commands  # 控制命令
+│  │         ├─create_daily_quota.py  # 创建指定日期的余票
+│  │         ├─load_ticket_types.py  # 一键初始化TicketType表
+│  │         ├─refund_order.py  # 退指定订单id的订单  
+│  │         ├─reset_year_ticket_quota.py  # 重置所有的年票
+│  │         ├─set_year_ticket_quota.py  # 输入电话号为绑定该电话号的用户设置年票余额
+│  │         ├─update_daily_quota.py  # 更新指定的余票
+│  │         └─update_order_status.py  # 更新指定订单的状态为已核销(检票用)
 │  ├─migrations  # 迁移文件记录
 │  ├─apps.py  # app启动类
 │  ├─models.py  # 对数据库操作
@@ -130,8 +138,11 @@ djangoProject
 - [x] 创建订单信息
 - [x] 用户确认订单
 - [x] 退票
-- [x] 获取可用余票 
-- [x] 获取其他可用余票
+- [x] 获取故宫可用余票 
+- [x] 获取其他馆可用余票
+- [x] 年票订单确认
+- [x] 年票退票
+- [x] 年票查询
 
 ####  数据库课程设计项目结构
 ```
@@ -150,7 +161,10 @@ djangoProject
 │  │  ├─orders  # 订单记录
 │  │  ├─pay  # (购票)支付
 │  │  ├─ticket  # (购票)选择日期和票种
-│  │  └─write_info  # (购票)填写个人信息
+│  │  ├─write_info  # (购票)填写个人信息
+│  │  ├─year_ticket  # 年票订票
+│  │  ├─year_ticket_confirm  # 年票订单确认
+│  │  └─ year_ticket_write_info  # 年票信息填写
 │  ├─stores  # 存储信息的文件
 │  ├─app.js  # 小程序的主 JavaScript 文件
 │  ├─app.json  # 小程序的全局配置文件
