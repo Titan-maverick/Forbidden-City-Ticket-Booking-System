@@ -184,15 +184,12 @@ djangoProject
 
 ## 项目配置？
 #### 修改配置
+该路径下
 ```
 GugongAdministrator/pear-admin-flask/applications/config.py
 ```
-# MySql配置信息
-请先创建数据库, 并用Django orm架构命令生成,然后在这里配置你本地的MySQL,
-# 密钥配置
-
-# 邮箱配置
-
+#### MySql配置信息
+请先创建数据库, 并用Django orm架构命令生成,然后在这里配置你本地的MySQL,请根据注释修改对应的值
 ```
 
 ## 如何快速上手这个项目？
