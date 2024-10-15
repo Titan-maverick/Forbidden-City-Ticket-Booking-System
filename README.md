@@ -10,7 +10,7 @@
   </h4> 
 </div>
 
-<div align="center">
+<div style="text-align: center;">
   <img width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/project_show.png" alt="项目展示" />
 </div>
 
