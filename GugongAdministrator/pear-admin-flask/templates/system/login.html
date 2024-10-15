@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录</title>
+    {% include 'system/common/header.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='system/admin/css/other/login.css') }}"/>
+</head>
+<body class="login-body" background="{{ url_for('static', filename='system/admin/images/background.svg') }}">
+<form class="layui-form" action="javascript:void(0);">
+    <div class="layui-form-item">
+        <img class="logo" src="{{ url_for('static', filename='system/admin/images/logo.png') }}"/>
+        <div class="title">登录</div>
+        <div class="desc">
+            故宫订票后台管理系统
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <input name="username" type="text" placeholder="用户名：" value="" hover class="layui-input"/>
+    </div>
+    <div class="layui-form-item">
+        <input name="password" type="password" placeholder="密码：" value="" hover class="layui-input"/>
+    </div>
+    <div class="layui-form-item">
+        <input placeholder="验证码 : " name="captcha" hover class="code layui-input layui-input-inline"/>
+        <img src="{{ url_for('system.passport.get_captcha') }}" class="codeImage" id="captchaImage"/>
+    </div>
+    <div class="layui-form-item">
+        <input type="checkbox" name="remember-me" title="记住密码" lay-skin="primary">
+    </div>
+    <div class="layui-form-item">
+        <button class="pear-btn pear-btn-success login" lay-submit lay-filter="login">
+            登 入
+        </button>
+    </div>
+</form>
+{% include 'system/common/footer.html' %}
+<script>
+    layui.use(['form', 'jquery', 'layer', 'button', 'popup'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+        let layer = layui.layer;
+        let button = layui.button;
+        let popup = layui.popup;
+        let captchaPath = "{{ url_for('system.passport.get_captcha') }}";
+
+        /**
+         * 刷新验证码函数
+         */
+        const refreshCaptchaImage = (function () {
+            let captchaImage = document.getElementById("captchaImage")
+            return function () {
+                captchaImage.src = captchaPath + "?" + Math.random()
+            }
+        })()
+
+        /**
+         * 立即刷新验证码并且每隔 30秒 刷新
+         */
+        const initCaptchaImageTimer = (function () {
+            let captchaImageTimer = null
+            return function () {
+                clearInterval(captchaImageTimer)
+                captchaImageTimer = setInterval(function () {
+                    refreshCaptchaImage()
+                }, 30 * 1000);
+                refreshCaptchaImage()
+            }
+        })()
+        initCaptchaImageTimer()
+
+        form.on('submit(login)', function (data) {
+            let loader = layer.load();
+            let btn = button.load({elem: '.login'});
+            $.ajax({
+                data: data.field,
+                type: "post",
+                dataType: 'json',
+                success: function (result) {
+                    layer.close(loader);
+                    btn.stop(function () {
+                        if (result.success) {
+                            popup.success(result.msg, function () {
+                                location.href = "{{ url_for('index.index') }}";
+                            })
+                        } else {
+                            popup.failure(result.msg, function () {
+                                initCaptchaImageTimer()
+                            });
+                        }
+                    })
+                }
+            });
+            return false;
+        });
+        $("#captchaImage").click(function () {
+            initCaptchaImageTimer()
+        });
+    })
+</script>
+<script>
+    if (window !== top) {
+        top.location.href = location.href;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+{
+  "entryPagePath": "pages/home/home",
+  "pages": [
+    "pages/my/my",
+    "pages/home/home",
+    "pages/notice_page1/notice_page1",
+    "pages/notice_page2/notice_page2",
+    "pages/ticket/ticket",
+    "pages/write_info/write_info",
+    "pages/choose_two_pavilion/choose_two_pavilion",
+    "pages/orders/orders",
+    "pages/order_detail/order_detail",
+    "pages/confirm/confirm",
+    "pages/pay/pay"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f8f3e8",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true,
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "selectedColor": "#956806",
+    "backgroundColor": "#f8f3e8",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "assets/images/app_images/home.png",
+        "selectedIconPath": "assets/images/app_images/home-active.png"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "订单",
+        "iconPath": "assets/images/app_images/orders.png",
+        "selectedIconPath": "assets/images/app_images/orders-active.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "个人",
+        "iconPath": "assets/images/app_images/profile.png",
+        "selectedIconPath": "assets/images/app_images/profile-active.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "van-calendar": "/miniprogram_npm/@vant/weapp/calendar/index",
+    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index",
+    "van-icon": "/miniprogram_npm/@vant/weapp/icon/index",
+    "van-empty": "/miniprogram_npm/@vant/weapp/empty/index",
+    "van-swipe-cell": "/miniprogram_npm/@vant/weapp/swipe-cell/index",
+    "van-checkbox": "/miniprogram_npm/@vant/weapp/checkbox/index",
+    "van-stepper": "/miniprogram_npm/@vant/weapp/stepper/index",
+    "van-submit-bar": "/miniprogram_npm/@vant/weapp/submit-bar/index",
+    "van-action-sheet": "/miniprogram_npm/@vant/weapp/action-sheet/index",
+    "van-button": "/miniprogram_npm/@vant/weapp/button/index",
+    "van-popup": "/miniprogram_npm/@vant/weapp/popup/index",
+    "van-field": "/miniprogram_npm/@vant/weapp/field/index",
+    "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
+    "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
+    "van-datetime-picker": "/miniprogram_npm/@vant/weapp/datetime-picker/index",
+    "van-goods-action": "/miniprogram_npm/@vant/weapp/goods-action/index",
+    "van-goods-action-icon": "/miniprogram_npm/@vant/weapp/goods-action-icon/index",
+    "van-goods-action-button": "/miniprogram_npm/@vant/weapp/goods-action-button/index"
+  },
+  "sitemapLocation": "sitemap.json",
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseLocation"
+  ],
+  "resolveAlias": {
+    "@/*": "/*"
+  },
+  "lazyCodeLoading": "requiredComponents"
+}

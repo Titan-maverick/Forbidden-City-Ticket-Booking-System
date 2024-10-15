@@ -1,0 +1,291 @@
+page {
+  background-color: #f8f3e8;
+  /* 设置页面背景色 */
+}
+
+.container {
+  width: 100%;
+  background-color: #f8f3e8;
+}
+
+.liangguan-title{
+  white-space: nowrap; /* 禁止换行 */
+}
+
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-weight: bold;
+  margin: 0;
+  /* 去除外边距 */
+  padding: 0;
+  /* 去除内边距 */
+  font-family: 'SimSun', '宋体', serif;
+}
+
+.back-icon {
+  position: absolute;
+  top: 100rpx;
+  /* 距离顶部 100rpx */
+  left: 20rpx;
+  /* 距离左侧 20rpx */
+  width: 40rpx;
+  /* 图标宽度 */
+  height: 40rpx;
+  /* 图标高度 */
+}
+
+.navbar-title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.title-card {
+  background-color: #fffcf7;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 10rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-top: 200rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.time, .phone-number {
+  font-size: 33rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.choose-card {
+  margin-top: 20rpx;
+  background-color: #fffcf7;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.choose-card-title-container {
+  margin-bottom: 30rpx;
+  border-bottom: 2rpx solid #8f7845;
+}
+
+.choose-card-title {
+  font-size: 45rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  font-family: 'SimSun', '宋体', serif;
+}
+
+/* 选择项目容器 */
+.choose-item {
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+  background-color: #f8f8f8;
+  border-radius: 10rpx;
+}
+
+/* 选择项目内容 */
+.choose-item-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* 允许换行 */
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+
+.name-item {
+  margin-bottom: 20rpx;
+    /* 确保 name-item 与其他内容有一定间隔 */
+    width: 100%;
+    /* 使 name-item 占据整行 */
+    display: block;
+    /* 确保 name-item 在一行上显示 */
+}
+
+.ticket-category {
+  font-weight: normal;
+  color: #666666;
+}
+
+/* 场馆选择 */
+.ticket-info,
+.venue-selection,
+.exhibition-selection {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+/* 门票信息 */
+.ticket-info {
+  padding-right: 20rpx; /* 右侧内边距 */
+  margin-bottom: 20rpx; /* 增加底部外边距 */
+}
+
+/* 场馆选择 */
+.venue-selection {
+  padding-right: 0rpx; /* 右侧内边距 */
+  margin-bottom: 20rpx; /* 增加底部外边距 */
+}
+
+.venue-selection text,
+.exhibition-selection text {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+/* 选择按钮 */
+.choose-button {
+  margin-left: auto; /* 将按钮对齐到右边 */
+  width: 260rpx;
+  height: 130rpx;
+  padding: 5rpx 15rpx;
+  background-color: #f8f3e8;
+  border: 1rpx solid #8f7845;
+  border-radius: 8rpx;
+  margin: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 改为 flex-start 实现靠左对齐 */
+  font-size: 28rpx;
+}
+.choose-button-exhibition{
+  margin-left: auto; /* 将按钮对齐到右边 */
+  width: 260rpx;
+  height: 330rpx;
+  padding: 5rpx 15rpx;
+  background-color: #f8f3e8;
+  border: 1rpx solid #8f7845;
+  border-radius: 8rpx;
+  margin: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 改为 flex-start 实现靠左对齐 */
+  font-size: 28rpx;
+}
+
+/* 按钮内容 */
+.button-content {
+  display: flex;
+  flex-direction: column; /* 垂直方向排列按钮标题和价格 */
+  align-items:flex-start;
+  width: 100%;
+}
+
+/* 按钮标题 */
+.button-title {
+  font-size: 28rpx;
+  color: #333;
+  margin-top: 10rpx; /* 按钮标题与虚线之间的间距 */
+  position: relative; /* 为了在虚线之下添加价格 */
+}
+
+.tickets_available{
+  position: absolute; /* 绝对定位 */
+  top:-2px; /* 距离顶部5px */
+  right: -86px; /* 距离右侧5px */
+  width: 20px; /* 设置宽度 */
+  height: 20px; /* 设置高度 */
+  border-radius: 10px; /* 圆角 */
+  color: #745004; /* 字体颜色为白色 */
+  display: flex; /* 使其为弹性盒模型 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  background-color: #e9dfc9;
+  padding: 0px 6px;
+  white-space: nowrap;
+}
+
+/* 虚线 */
+.button-divider {
+  width: 100%; /* 虚线宽度填满按钮 */
+  border-bottom: 1rpx dashed #8f7845; /* 长虚线 */
+  margin-bottom: 0rpx; /* 虚线与价格之间的间距 */
+  position: relative;
+}
+
+/* 按钮价格 */
+.button-price {
+  font-size: 28rpx;
+  color: #b8b7b6;
+  margin-left: auto; /* 价格右对齐 */
+}
+.button-price.selected {
+  font-size: 28rpx;
+  color: #8f7845;
+  margin-left: auto; /* 价格右对齐 */
+}
+
+.choose-button.selected ,.choose-button-exhibition.selected{
+  background-color: #ffffff;
+  border-color: #8f7845;
+}
+
+.check-icon {
+  width: 30rpx;
+  /* 对勾图标宽度 */
+  height: 30rpx;
+  /* 对勾图标高度 */
+  position: absolute;
+  /* 绝对定位 */
+  top: 5rpx;
+  /* 从按钮顶部偏移距离 */
+  right: 5rpx;
+  /* 从按钮右侧偏移距离 */
+}
+
+/* 结算栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f3e8;
+  border-top: 1rpx solid #e6e6e6;
+  display: flex;
+  justify-content: space-between; /* 使内容在左右两边对齐 */
+  align-items: center;
+  padding: 20rpx;
+  padding-right: 30rpx; /* 增加右侧内边距，确保按钮完全靠右 */
+  box-shadow: 0rpx -5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+  z-index: 1000; /* 确保结算栏位于最上层 */
+}
+
+/* 总计文本 */
+.total-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 确认按钮 */
+.confirm-button {
+  background-color: #8f7845; /* 选中状态背景颜色 */
+  color: #fff;
+  border-radius: 8rpx;
+  padding: 0rpx 80rpx;
+  font-size: 32rpx;
+  position: fixed;
+  right: 0;
+  margin-right: 10rpx;
+}
+
+.total-count {
+  font-size: 52rpx;
+  color: #8f7845;
+  font-weight: bold;
+}

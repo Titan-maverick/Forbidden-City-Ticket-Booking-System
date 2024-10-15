@@ -1,0 +1,115 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <image class="back-icon" src="/assets/images/notice/back.png" bindtap="handleBackClick"></image>
+    <text class="navbar-title">选择两馆及展览</text>
+  </view>
+
+  <view class="title-card">
+    <!-- 订单内容 -->
+    <view class="info">
+      <view class="time">
+        <text>参观日期: {{ selectedDate }} {{selectedTime}}</text>
+      </view>
+      <view class="phone-number">
+        <text>联系方式: {{phoneNumber}}</text>
+      </view>
+    </view>
+
+    <!-- 结算栏 -->
+    <view class="bottom-bar">
+      <view class="total-text">总价￥ <text class="total-count">{{ totalPrice }}</text></view>
+      <button class="confirm-button" bindtap="confirmOrder">提交订单</button>
+    </view>
+  </view>
+
+  <!-- 选择两馆及展览 -->
+  <view class="choose-card">
+    <view class="choose-card-title-container">
+      <text class="choose-card-title">选择两馆及展览</text>
+    </view>
+
+    <!-- 根据 audienceList 生成选择窗口 -->
+    <view wx:for="{{audienceList}}" wx:key="index" class="choose-item">
+      <view class="choose-item-content">
+          <view class="name-item">
+        <text>{{item.name}} <text class="ticket-category">{{item.ticketType}}</text></text>
+           </view>
+
+     <view class="ticket-info"> 
+        <view class="left-title"> 
+          <text>门票</text>
+        </view>
+          <button class="choose-button {{ true === true ? 'selected' : ''}}">
+            <view class="button-content">
+              <view class="button-title">
+              {{item.ticketType}}
+            </view>
+            <view class="button-divider"></view>
+            <view class="button-price {{ true === true ? 'selected' : ''}}">
+              ￥{{item.ticketPrice}}
+            </view>
+            <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{true}}"></image>
+               </view>
+            </button>
+
+        </view>
+
+        <view class="venue-selection">
+          <text class="liangguan-title">两馆</text>
+
+          <button class="choose-button {{item.isTreasureIslandSelected === true ? 'selected' : ''}}" bindtap="select_TreasureIsland" data-index="{{index}}">
+            <view class="button-content">
+              <view class="button-title">
+              珍宝岛<view class="tickets_available" wx:if="{{!item.isTreasureIslandSelected}}">{{treasure_tickets_available > 999 ? '可订' : treasure_tickets_available}}</view>
+            </view>
+            <view class="button-divider"></view>
+            <view class="button-price {{item.isTreasureIslandSelected === true ? 'selected' : ''}}">
+            ￥{{item.TreasureIslandPrice}}
+          </view>
+            <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{item.isTreasureIslandSelected}}"></image>
+               </view>
+            </button>
+
+            <button class="choose-button {{item.isClockMuseumSelected === true ? 'selected' : ''}}" bindtap="select_ClockMuseum" data-index="{{index}}">
+            <view class="button-content">
+              <view class="button-title">
+              钟表馆<view class="tickets_available" wx:if="{{!item.isClockMuseumSelected}}">{{clock_tickets_available > 999 ? '可订' : clock_tickets_available}}</view>
+            </view>
+            <view class="button-divider"></view>
+            <view class="button-price {{item.isClockMuseumSelected === true ? 'selected' : ''}}">
+            ￥{{item.TreasureIslandPrice}}
+          </view>
+            <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{item.isClockMuseumSelected}}"></image>
+               </view>
+            </button>
+
+        </view>
+
+        <view class="exhibition-selection">
+          <text>展览</text>
+
+            <button class="choose-button-exhibition {{item.isExhibitionSelected === true ? 'selected' : ''}}" bindtap="select_exhibition" data-index="{{index}}">
+            <view class="button-content">
+              <view class="button-title">
+              文华殿<view class="tickets_available" wx:if="{{!item.isExhibitionSelected}}">{{exhibition_tickets_available > 999 ? '可订' : exhibition_tickets_available}}</view>
+            </view>
+            <view>
+            千秋佳人--故宫博物院藏历代人物画特展(第四期)
+          </view>
+            <view class="button-divider"></view>
+            <view class="button-price {{item.isExhibitionSelected === true ? 'selected' : ''}}">
+            ￥{{item.exhibitionPrice}}
+          </view>
+            <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{item.isExhibitionSelected}}"></image>
+               </view>
+            </button>
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加额外的空白空间 -->
+  <view style="height: 200rpx; background-color: #f8f3e8;"></view>
+</view>

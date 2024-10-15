@@ -1,0 +1,133 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <text class="navbar-title">订单</text>
+  </view>
+
+<!-- 标签导航栏 -->
+<view class="tab-bar">
+  <!-- 全部 -->
+  <view class="{{activeTab === '全部' ? 'tab active' : 'tab'}}" bindtap="changeTab" data-tab="全部">
+    全部
+  </view>
+  <!-- 待支付 -->
+  <view class="{{activeTab === '待支付' ? 'tab active' : 'tab'}}" bindtap="changeTab" data-tab="待支付">
+    待支付
+  </view>
+  <!-- 未使用 -->
+  <view class="{{activeTab === '未使用' ? 'tab active' : 'tab'}}" bindtap="changeTab" data-tab="未使用">
+    未使用
+  </view>
+  <!-- 退款/售后 -->
+  <view class="{{activeTab === '退款/售后' ? 'tab active' : 'tab'}}" bindtap="changeTab" data-tab="退款/售后">
+    退款/售后
+  </view>
+</view>
+
+  
+ <!-- 内容切换部分 -->
+ <view class="content">
+
+<!-- "全部" Tab 内容 -->
+<view wx:if="{{activeTab === '全部'}}">
+  <view wx:for="{{orders}}" wx:key="order_id" wx:if="{{item.status != '已退票'}}" class="order-card" bindtap="goToOrderDetail" data-order-id="{{item.order_id}}">
+  
+    <view class="order-info">
+      <view class="order-date">
+        <text>参观日期：<text class="date">{{item.order_date}}</text></text>
+        <text class="status">{{item.status}}</text>
+      </view>
+
+      <view class="ticket-info" wx:for="{{item.Concise_orders}}" wx:key="index">
+        <text  class="">{{item.type_name}}x {{item.quantity}}张</text>
+        <text class="price">¥{{item.price}}</text>
+      </view>
+
+      <view class="total">
+        <text>合计 ¥{{item.total}}</text>
+      </view>
+    </view>
+
+    <view class="order-footer">
+      <text>下单时间：{{item.booking_record.purchase_date}}</text>
+    </view>
+
+  </view>
+</view>
+
+<!-- "待支付" Tab 内容 -->
+<view wx:if="{{activeTab === '待支付'}}">
+  <view wx:for="{{orders}}" wx:key="order_id" wx:if="{{item.status === '待支付'}}"bindtap="goToOrderDetail" data-order-id="{{item.order_id}}" class="order-card">
+    <view class="order-info">
+      <view class="order-date">
+        <text>参观日期：<text class="date">{{item.order_date}}</text></text>
+        <text class="status">{{item.status}}</text>
+      </view>
+
+      <view class="ticket-info" wx:for="{{item.Concise_orders}}" wx:key="index">
+        <text class="">{{item.type_name}}x {{item.quantity}}张</text>
+        <text class="price">¥{{item.price}}</text>
+      </view>
+
+      <view class="total">
+        <text>合计 ¥{{item.total}}</text>
+      </view>
+    </view>
+    <view class="order-footer">
+      <text>下单时间：{{item.booking_record.purchase_date}}</text>
+    </view>
+  </view>
+</view>
+
+
+<!-- "未使用" Tab 内容 -->
+<view wx:if="{{activeTab === '未使用'}}">
+  <view wx:for="{{orders}}" wx:key="order_id" wx:if="{{item.status === '未使用'}}" bindtap="goToOrderDetail" data-order-id="{{item.order_id}}" class="order-card">
+    <view class="order-info">
+      <view class="order-date">
+        <text>参观日期：<text class="date">{{item.order_date}}</text></text>
+        <text class="status">{{item.status}}</text>
+      </view>
+
+      <view class="ticket-info" wx:for="{{item.Concise_orders}}" wx:key="index">
+        <text class="">{{item.type_name}}x {{item.quantity}}张</text>
+        <text class="price">¥{{item.price}}</text>
+      </view>
+
+      <view class="total">
+        <text>合计 ¥{{item.total}}</text>
+      </view>
+    </view>
+    <view class="order-footer">
+      <text>下单时间：{{item.booking_record.purchase_date}}</text>
+    </view>
+  </view>
+</view>
+
+<!-- "退款/售后" Tab 内容 -->
+<view wx:if="{{activeTab === '退款/售后'}}">
+<view wx:for="{{orders}}" wx:key="order_id" wx:if="{{item.status === '已核销'}}" bindtap="goToOrderDetail" data-order-id="{{item.order_id}}" class="order-card">
+    <view class="order-info">
+      <view class="order-date">
+        <text>参观日期：<text class="date">{{item.order_date}}</text></text>
+        <text class="status">{{item.status}}</text>
+      </view>
+
+      <view class="ticket-info" wx:for="{{item.Concise_orders}}" wx:key="index">
+        <text class="">{{item.type_name}}x {{item.quantity}}张</text>
+        <text class="price">¥{{item.price}}</text>
+      </view>
+
+      <view class="total">
+        <text>合计 ¥{{item.total}}</text>
+      </view>
+    </view>
+    <view class="order-footer">
+      <text>下单时间：{{item.booking_record.purchase_date}}</text>
+    </view>
+  </view>
+</view>
+
+  </view>
+
+</view>

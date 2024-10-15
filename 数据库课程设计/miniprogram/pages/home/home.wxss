@@ -1,0 +1,157 @@
+/* pages/home/home.wxss */
+page {
+  background-color: #f8f3e8;
+  /* 设置页面背景色 */
+}
+
+.container {
+  width: 100%;
+}
+
+/* 自定义导航栏样式 */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: white;
+  width: 100%;
+  height: 200rpx;
+  /* 根据需要调整高度 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  /* 确保在轮播图上面 */
+  font-weight: bold;
+}
+
+.swiper {
+  width: 100%;
+  height: 600rpx;
+  /* 你可以根据实际需求调整高度 */
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+}
+
+.tips_1 {
+  font-size: xx-large;
+  color: black;
+  margin-top: 40rpx;
+  margin-left: 30rpx;
+  font-family: SimSun, serif;
+  /* 设置字体 */
+  font-weight: bold;
+  /* 设置字体加粗 */
+}
+
+.tips_2 {
+  font-size: small;
+  color: gray;
+  margin-top: 20rpx;
+  margin-left: 25rpx;
+}
+
+.main-content {
+  overflow: hidden;
+  border-radius: 10rpx;
+  /* 设置圆角半径 */
+}
+
+.notice-bar {
+  width: 100%;
+  background-color: #f0eadd;
+  padding: 10rpx;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 10rpx;
+  /* 设置圆角半径 */
+}
+
+.sound-icon {
+  width: 40rpx;
+  height: 50rpx;
+  margin-left: 15rpx;
+  margin-right: 20rpx;
+  /* 图标和文字之间的间距 */
+}
+
+.arrow-right {
+  width: 40rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}
+
+.notice-text {
+  font-size: 28rpx;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* 防止文字溢出时显示省略号 */
+  text-align: left;
+  /* 文字左对齐 */
+  flex-grow: 1;
+  /* 占满剩余空间 */
+}
+
+.button {
+  display: flex;
+  /* 使用 flex 布局 */
+  flex-direction: row;
+  /* 让内容在一行中排列 */
+  justify-content: flex-start;
+  /* 使按钮从左对齐开始排列 */
+  align-items: center;
+  margin-top: 50rpx;
+  border: none;
+}
+
+.image-button {
+  width: 300rpx; /* 保持统一的按钮宽度 */
+  height: 250rpx; /* 统一按钮的高度 */
+  margin-right: 150rpx; /* 添加按钮之间的间距 */
+  border-radius: 15rpx; /* 添加圆角 */
+  margin-left: 30rpx; /* 添加按钮之间的间距 */
+}
+
+.image-button_1 {
+  width: 300rpx;/* 保持统一的按钮宽度 */
+  height: 300rpx;/* 统一按钮的高度 */
+  margin-right: 50rpx;
+  border: none;
+  border-radius: 30rpx; /* 添加圆角 */
+  overflow: hidden; /* 超出圆角的部分不显示 */
+}
+
+.button-image {
+  width: 135%;
+  /* 确保图片宽度占满按钮容器 */
+  height: 100%;
+  /* 确保图片高度占满按钮容器 */
+  object-fit: cover;
+  /* 确保图片保持比例 */
+}
+
+.button-image_1 {
+  width: 100%;
+  /* 确保图片宽度占满按钮容器 */
+  height: 100%;
+  /* 确保图片高度占满按钮容器 */
+  object-fit: cover;
+  /* 确保图片保持比例 */
+}
+
+.image-logo {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* 确保图片宽度占满容器 */
+  height: 80rpx;
+  /* 固定高度 */
+  object-fit: cover;
+  /* 保持图片比例并填满容器 */
+}

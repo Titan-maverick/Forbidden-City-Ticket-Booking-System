@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>插入每天每种门票的数据</title>
+    {% include 'system/common/header.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='system/admin/css/other/user.css') }}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* 表格样式优化 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #f1f1f1;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* 禁止标签换行 */
+        .layui-form-label {
+            white-space: nowrap;
+            margin-right: 15px;
+        }
+
+        .layui-input-inline {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .update-btn, .create-btn {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .update-btn:hover, .create-btn:hover {
+            background-color: #45a049;
+        }
+
+        .create-btn {
+            display: none; /* 默认隐藏新建按钮 */
+        }
+    </style>
+</head>
+<body class="pear-container">
+
+{# 查询表单 #}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="" method="get" id="user-query-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">查询类型</label>
+                <div class="layui-input-inline">
+                    <select name="type" class="layui-input">
+                        <option value="day">按日查询</option>
+                        <option value="month">按月查询</option>
+                    </select>
+                </div>
+
+                <label class="layui-form-label">日期</label>
+                <div class="layui-input-inline">
+                    <input type="date" name="date" class="layui-input" placeholder="选择日期" value="{{ current_date }}">
+                </div>
+
+                <label class="layui-form-label">时间段</label>
+                <div class="layui-input-inline">
+                    <select name="select_time" class="layui-input">
+                        <option value="上午">上午</option>
+                        <option value="下午">下午</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="pear-btn pear-btn-md pear-btn-primary">
+                    <i class="layui-icon layui-icon-search"></i> 查询
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{# 售票数据表格 #}
+<div class="user-main user-collasped">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>时间段</th>
+                        <th>票种</th>
+                        <th>余票量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button class="create-btn">新建</button> {# 新建按钮 #}
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    function fetchData() {
+        let formDataArray = $('#user-query-form').serializeArray();
+        let formData = {};
+
+        formDataArray.forEach(item => {
+            formData[item.name] = item.value;
+        });
+
+        if (!formData['date']) {
+            alert('请选择日期再查询。');
+            return;
+        }
+
+        console.log('传递的数据:', formData);
+
+        $.ajax({
+            url: '/system/insert_ticket_data/query',
+            type: 'GET',
+            data: formData,
+            beforeSend: function() {
+                // 显示加载指示器
+                $('#user-table tbody').html('<tr><td colspan="5">加载中...</td></tr>');
+            },
+            success: function(res) {
+                $('#user-table tbody').empty();
+                console.log('后端返回的完整响应:', res);
+
+                if (res.data.length === 0 && formData['type'] === 'day') {
+                    $('.create-btn').show(); // 查询结果为空，显示新建按钮
+                } else {
+                    $('.create-btn').hide(); // 查询结果不为空，隐藏新建按钮
+                }
+
+                res.data.forEach(function(quota) {
+                    var html = '<tr>';
+                    html += '<td>' + (quota.date || '') + '</td>';
+                    html += '<td>' + (quota.select_time || '') + '</td>';
+                    html += '<td>' + (quota.museum_ticket_type || '') + '</td>';
+                    html += '<td class="remaining-tickets">' + (quota.available_tickets || 0) + '</td>';
+                    html += '<td><button class="update-btn" data-id="' + quota.id + '">修改</button></td>';
+                    html += '</tr>';
+                    $('#user-table tbody').append(html);
+                });
+            },
+            error: function(jqXHR) {
+                console.error('错误信息:', jqXHR.responseText);
+                alert('查询失败，请重试。');
+            }
+        });
+    }
+
+    $(document).on('click', '.update-btn', function() {
+        // 获取按钮所在行的日期、时间段和票种
+        let row = $(this).closest('tr');
+        let date = row.find('td:eq(0)').text(); // 获取日期
+        let selectTime = row.find('td:eq(1)').text(); // 获取时间段
+        let ticketType = row.find('td:eq(2)').text(); // 获取票种
+
+        let currentRemaining = row.find('.remaining-tickets').text(); // 当前余票量
+        let newRemaining = prompt("请输入新的余票量:", currentRemaining); // 提示输入新的余票量
+        console.log('date', date)
+        console.log('selectTime', selectTime)
+        console.log('ticketType', ticketType)
+        console.log('currentRemaining', currentRemaining)
+        console.log('newRemaining', newRemaining)
+        if (newRemaining !== null) {
+            // 检查新值是否有效
+            if (isNaN(newRemaining) || newRemaining < 0) {
+                alert('请输入有效的余票量。');
+                return;
+            }
+
+            // 发送更新请求
+            $.ajax({
+                url: '/system/insert_ticket_data/update_quota', // 更新余票量的后端接口
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    date: date, // 传递日期
+                    select_time: selectTime, // 传递时间段
+                    museum_ticket_type: ticketType, // 传递票种
+                    remaining_tickets: newRemaining // 传递新的余票量
+                }),
+                success: function() {
+                    alert('余票量更新成功！');
+                    fetchData(); // 重新加载数据
+                },
+                error: function() {
+                    alert('更新失败，请重试。');
+                }
+            });
+        }
+    });
+
+    $('#user-query-form').on('submit', function(e) {
+        e.preventDefault();
+        fetchData();
+        $('.create-btn').hide(); // 提交查询后隐藏新建按钮
+    });
+
+    $('.create-btn').on('click', function() {
+            // 获取当前选择的日期和时间段
+        let selectedDate = $('input[name="date"]').val(); // 获取日期
+        let selectedTime = $('select[name="select_time"]').val(); // 获取时间段
+                // 检查是否选择了日期
+        if (!selectedDate) {
+            alert('请先选择日期。');
+            return;
+        }
+                // 你可以在这里调用后端接口进行新建操作
+         $.ajax({
+             url: '/system/insert_ticket_data/create_new', // 后端接口
+             type: 'POST',
+             contentType: 'application/json',
+             data: JSON.stringify({
+                 date: selectedDate,
+                 select_time: selectedTime,
+                 // 添加其他需要传递的数据
+             }),
+             success: function() {
+                 alert('新建成功！');
+                 fetchData(); // 重新加载数据
+             },
+             error: function() {
+                 alert('新建失败，请重试。');
+             }
+         });
+
+    });
+});
+</script>
+
+{% include 'system/common/footer.html' %}
+</body>
+</html>

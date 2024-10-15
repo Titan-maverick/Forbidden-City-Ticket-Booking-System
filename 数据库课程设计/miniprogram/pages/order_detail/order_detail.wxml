@@ -1,0 +1,105 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <image class="back-icon" src="/assets/images/notice/back.png" bindtap="handleBackClick"></image>
+    <text class="navbar-title">订单详情</text>
+  </view>
+
+<!-- 底部按钮 -->
+<view class="bottom-bar">
+  <button wx:if="{{orderDetails.status === '待支付'}}" class="confirm-button" bindtap="goToPay">去支付</button>
+  <button wx:if="{{orderDetails.status === '已关闭' || orderDetails.status === '已取消'}}" class="confirm-button" bindtap="bookAgain">再次预订</button>
+  <button wx:if="{{orderDetails.status === '未使用'}}" class="confirm-button" bindtap="refund">退票</button>
+  <button wx:if="{{orderDetails.status === '已核销'}}" class="confirm-button" bindtap="requestInvoice">申请发票</button>
+</view>
+
+
+  <!-- 内容切换部分 -->
+  <view class="content">
+  <view class="status-title">{{orderDetails.status}}</view>
+  <text wx:if="{{orderDetails.status === '待支付'}}">请在半个小时内支付, 否则该订单会自动取消!\n</text>
+  <text wx:if="{{orderDetails.status != '已核销'}}">感谢您对故宫博物馆的支持!</text>
+  <text wx:if="{{orderDetails.status === '已核销'}}">感谢您对故宫博物馆的支持,欢迎您再次参观!</text>
+
+    <view class="order-card">
+      <view class="order-info">
+        <view class="order-count">
+          <text class="count-title">订单金额</text>
+          <text class="status">¥<text class="money-count">{{orderDetails.total}}</text></text>
+        </view>
+
+        <view class="detail">
+          <view class="ticket-info" wx:for="{{orderDetails.audienceList}}" wx:key="index">
+            <view>
+              <text>{{item.name}}</text>
+            </view>
+
+            <view class="ticket-detail">
+              <!-- 门票 -->
+              <text>{{ticket_types[item.ticket_type_id - 1].type_name}} x 1 张</text>
+              <text>¥{{ticket_types[item.ticket_type_id - 1].price}}</text>
+            </view>
+
+            <!-- 珍宝馆 -->
+            <view wx:if="{{item.isTreasureIslandSelected}}" class="ticket-detail">
+              <text>{{ticket_types[item.ticket_type_id + 3].type_name}} x 1 张</text>
+              <text>¥{{ticket_types[item.ticket_type_id + 3].price}}</text>
+            </view>
+
+            <!-- 钟表馆 -->
+            <view wx:if="{{item.isClockMuseumSelected}}" class="ticket-detail">
+              <text>{{ticket_types[item.ticket_type_id + 7].type_name}} x 1 张</text>
+              <text>¥{{ticket_types[item.ticket_type_id + 7].price}}</text>
+            </view>
+
+            <!-- 展览 -->
+            <view wx:if="{{item.isExhibitionSelected}}" class="ticket-detail">
+              <text>{{ticket_types[12].type_name}} x 1 张</text>
+              <text>¥{{ticket_types[12].price}}</text>
+            </view>
+            <!-- 计算小计 -->
+<view class="total">
+  <!-- 只有门票 -->
+  <text wx:if="{{!item.isTreasureIslandSelected && !item.isClockMuseumSelected}}">
+    小计 ¥{{ticket_types[item.ticket_type_id - 1].price}}
+  </text>
+  
+  <!-- 外加珍宝馆 -->
+  <text wx:if="{{item.isTreasureIslandSelected && !item.isClockMuseumSelected}}">
+    小计 ¥{{ticket_types[item.ticket_type_id - 1].price + ticket_types[item.ticket_type_id + 3].price}}
+  </text>
+  
+  <!-- 外加钟表馆 -->
+  <text wx:if="{{item.isClockMuseumSelected && !item.isTreasureIslandSelected}}">
+    小计 ¥{{ticket_types[item.ticket_type_id - 1].price + ticket_types[item.ticket_type_id + 7].price}}
+  </text>
+
+  <!-- 外加珍宝馆和钟表馆 -->
+  <text wx:if="{{item.isTreasureIslandSelected && item.isClockMuseumSelected}}">
+    小计 ¥{{ticket_types[item.ticket_type_id - 1].price + ticket_types[item.ticket_type_id + 3].price + ticket_types[item.ticket_type_id + 7].price}}
+  </text>
+
+</view>
+            
+          </view>
+        </view>
+      </view>
+
+      <view class="order-footer">
+        <text>订单号：{{orderDetails.order_id}}\n</text>
+        <text>参观日期：{{orderDetails.order_date}}{{orderDetails.selected_time}}</text>
+      </view>
+    </view>
+
+    <view class="order-card">
+      <text class="tips-content">
+        1.观众务必携带预约时使用的有效证件原件由午门(故宫南门)检票入院。<text class="red-tips-content">预约上午时段的观众最迟检票时间为当日12:00，预约下午时段的观众最早检票时间为当日11:00。</text>
+        2.门票(大门票和钟表馆、珍宝馆及展览预约)，应于参观前7日20:00开始预约，限参观当日使用有效。<text class="red-tips-content">门票一经检票，不予退票。</text>
+        3.未使用的门票(大门票和钟表馆、珍宝馆及展览预约)可于<text class="red-tips-content">参观前一日24:00前通过原订票渠道退票，不计爽约;</text>参观当日20:00前仍可退票，但计1次爽约;<text class="red-tips-content">参观当日20:00后不可退票退款，且计1次爽约。</text>年票观众已登记但未检票的大门票可于参观当日20:00前通过原订单渠道取消，不计爽约。
+        4.部分展览须预约，以预约页面信息为准。预约政策可能会因开放管理要求临时调整，敬请谅解并配合现场工作人员管理。如需退订，<text class="red-tips-content">请于参观前一日24:00前通过原订票渠道退订，不计爽约。</text>逾期未退订，计1次爽约。
+        5.每人每日最多计1次爽约，180日内累计爽约3次，从3次爽约的次日起，60日内将无法预约故宫博物院门票及展览。
+        6.门票退款将在退订之日起5个工作日内原路返还至付款账户，请注意查收。如未收到退款，请致电客服查询。
+      </text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,50 @@
+/**app.wxss**/
+page {
+  background-color: #f8f3e8 !important;
+  min-height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0rpx;
+}
+
+.img {
+  width: 100%;
+}
+
+/* 全局 van-stepper 样式修改 */
+
+/* 修改右边按钮的背景颜色和字体颜色 */
+.van-stepper__plus {
+  background-color: #f6f4e8 !important; /* 右边按钮背景颜色 */
+  color: #8f7845 !important; /* 右边按钮文字颜色 */
+}
+
+/* 设置数字输入框背景为透明，文字颜色 */
+.van-stepper__input {
+  background-color: transparent !important; /* 输入框背景颜色为透明 */
+}
+
+.van-stepper__input input {
+  background-color: transparent !important; /* 输入框背景颜色 */
+  color: #8f7845 !important; /* 输入框文字颜色 */
+  border-color: transparent !important; /* 输入框边框颜色为透明 */
+}
+
+/* 修改左边按钮的默认背景颜色和字体颜色 */
+.van-stepper__minus {
+  background-color: #f6f4e8 !important; /* 左边按钮背景颜色 */
+  color: #8f7845 !important; /* 左边按钮文字颜色 */
+}
+
+/* 当值为 0 时，使用更具体的选择器覆盖默认的 disabled 样式 */
+.van-stepper__minus.van-stepper__minus--disabled {
+  background-color: #eeebe3 !important; /* 值为 0 时的左边按钮背景颜色 */
+  color: #8f7845 !important; /* 值为 0 时的文字颜色 */
+  border-color: #f7f3e8 !important; /* 确保边框也变为对应颜色 */
+}
+
+

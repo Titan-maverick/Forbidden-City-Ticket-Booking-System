@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>查询游客信息</title>
+    {% include 'system/common/header.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='system/admin/css/other/user.css') }}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* 表格样式优化 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center; /* 文本居中 */
+            border: 1px solid #ddd; /* 边框 */
+            background-color: #f9f9f9; /* 背景色 */
+            word-wrap: break-word; /* 自动换行 */
+        }
+
+        th {
+            background-color: #f1f1f1;
+            /* cursor: pointer; 鼠标悬停显示为可点击 */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* 奇偶行背景颜色不同 */
+        }
+
+        tr:hover {
+            background-color: #e0e0e0; /* 鼠标悬停效果 */
+        }
+
+        /* 禁止标签换行 */
+        .layui-form-label {
+            white-space: nowrap; /* 禁止换行 */
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .layui-input-inline {
+            display: inline-block; /* 使输入框和按钮在同一行 */
+            vertical-align: middle; /* 垂直对齐 */
+        }
+    </style>
+</head>
+<body class="pear-container">
+
+{# 查询表单 #}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="" method="get" id="user-query-form">
+            <div class="layui-form-item">
+
+                <label class="layui-form-label">根据个人信息查询: </label>
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="realname" placeholder="请输入姓名" class="layui-input">
+                </div>
+
+                <label class="layui-form-label">证件号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="idNumber" placeholder="请输入证件号" class="layui-input">
+                </div>
+
+                <!-- 查询按钮，负责姓名和证件号的查询 -->
+                <button type="submit" class="pear-btn pear-btn-md pear-btn-primary">
+                    <i class="layui-icon layui-icon-search"></i> 查询
+                </button>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">根据订单号查询: </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="order_number" placeholder="请输入订单号" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
+                    <button type="button" class="pear-btn pear-btn-md pear-btn-primary query-order">
+                        <i class="layui-icon layui-icon-search"></i> 查询
+                    </button>
+                </div>
+
+                <label class="layui-form-label">根据手机号查询: </label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" placeholder="请输入手机号码" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
+                    <button type="button" class="pear-btn pear-btn-md pear-btn-primary query-phone">
+                        <i class="layui-icon layui-icon-search"></i> 查询
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{# 用户表格 #}
+<div class="user-main user-collasped">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th data-column="name">姓名</th>
+                        <th data-column="id_type">证件类型</th>
+                        <th data-column="id_card">证件号</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // 定义证件类型的映射
+    var idTypeMap = {
+        0: '身份证',
+        1: '港澳居民往来内地通行证',
+        2: '外国人永久居留身份证',
+        3: '护照',
+        4: '台湾居民来往大陆通行证',
+        5: '港澳居民居住证'
+    };
+
+    // 获取并展示数据
+    function fetchData() {
+        let formDataArray = $('#user-query-form').serializeArray(); // 获取表单数据
+        let formData = {}; // 创建一个对象来存储字段和值
+
+        // 将数组转换为对象
+        formDataArray.forEach(item => {
+            formData[item.name] = item.value;
+        });
+
+        console.log('传递的数据:', formData); // 打印整个表单数据对象
+
+        $.ajax({
+            url: '/system/query_information/data', // 查询的后端接口
+            type: 'GET',
+            data: formData,
+            success: function(res) {
+                $('#user-table tbody').empty(); // 清空表格
+                console.log('后端返回的完整响应:', res);
+                // 遍历返回的用户数据
+                res.data.forEach(function(user) {
+                    var html = '<tr>';
+                    html += '<td>' + (user.name || '') + '</td>'; // 用户姓名
+                    html += '<td>' + (idTypeMap[user.id_type] || '未知类型') + '</td>'; // 证件类型
+                    html += '<td>' + (user.id_card || '') + '</td>'; // 证件号
+                    html += '</tr>';
+                    $('#user-table tbody').append(html); // 动态添加行
+                });
+            },
+            error: function() {
+                alert('查询失败，请重试。');
+            }
+        });
+
+        // 根据订单号的查询逻辑
+        $('.query-order').on('click', function() {
+            let orderNumber = $('input[name="order_number"]').val(); // 获取输入的订单号
+            if (!orderNumber) {
+                alert('请输入订单号。');
+                return;
+            }
+
+            // 发送 AJAX 请求
+            $.ajax({
+                url: '/system/query_information/order', // 替换为实际后端处理接口
+                type: 'GET',
+                data: { order_number: orderNumber }, // 传递订单号
+                success: function(res) {
+                    $('#user-table tbody').empty(); // 清空表格
+                    console.log('后端返回的完整响应:', res);
+                    // 遍历返回的用户数据
+                    res.data.forEach(function(user) {
+                        var html = '<tr>';
+                        html += '<td>' + (user.name || '') + '</td>'; // 用户姓名
+                        html += '<td>' + (idTypeMap[user.id_type] || '未知类型') + '</td>'; // 证件类型
+                        html += '<td>' + (user.id_card || '') + '</td>'; // 证件号
+                        html += '</tr>';
+                        $('#user-table tbody').append(html); // 动态添加行
+                    });
+                },
+                error: function() {
+                    alert('查询失败，请重试。');
+                }
+            });
+        });
+
+
+         // 根据电话号的查询逻辑
+        $('.query-phone').on('click', function() {
+            let phone = $('input[name="phone"]').val(); // 获取输入的电话号
+            if (!phone) {
+                alert('请输入电话号。');
+                return;
+            }
+
+            // 发送 AJAX 请求
+            $.ajax({
+                url: '/system/query_information/phone', // 替换为实际后端处理接口
+                type: 'GET',
+                data: { phone: phone }, // 传递订单号
+                success: function(res) {
+                    $('#user-table tbody').empty(); // 清空表格
+                    console.log('后端返回的完整响应:', res);
+                    // 遍历返回的用户数据
+                    res.data.forEach(function(user) {
+                        var html = '<tr>';
+                        html += '<td>' + (user.name || '') + '</td>'; // 用户姓名
+                        html += '<td>' + (idTypeMap[user.id_type] || '未知类型') + '</td>'; // 证件类型
+                        html += '<td>' + (user.id_card || '') + '</td>'; // 证件号
+                        html += '</tr>';
+                        $('#user-table tbody').append(html); // 动态添加行
+                    });
+                },
+                error: function() {
+                    alert('查询失败，请重试。');
+                }
+            });
+        });
+    }
+    // 默认加载数据
+    fetchData();
+
+    // 提交查询表单时重新加载数据
+    $('#user-query-form').on('submit', function(e) {
+        e.preventDefault();
+        fetchData(); // 重新加载数据
+    });
+});
+</script>
+
+{% include 'system/common/footer.html' %}
+</body>
+</html>

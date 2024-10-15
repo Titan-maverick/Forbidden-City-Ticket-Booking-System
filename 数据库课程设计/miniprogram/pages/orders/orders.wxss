@@ -1,0 +1,122 @@
+page {
+  background-color: #f8f3e8; /* 设置页面背景色 */
+}
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-weight: bold;
+  margin: 0; /* 去除外边距 */
+  padding: 0; /* 去除内边距 */
+}
+
+.container {
+  width: 100%;
+  margin: 0; /* 去除外边距 */
+  padding: 0; /* 去除内边距 */
+}
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 180rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f3e8;
+  z-index: 1000;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+/* 标签导航栏样式 */
+.tab-bar {
+  display: flex;
+  justify-content: space-around;
+  background-color: #f5f2e9;
+  padding-bottom: 20rpx;
+  margin-top: 180rpx;
+}
+
+.tab {
+  font-size: 28rpx;
+  color: #8e7f70; /* 未选中的标签颜色 */
+  padding: 10rpx 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+/* 选中状态的 Tab 样式 */
+.tab.active {
+  font-weight: bold;
+  color: black; /* 选中时的标签字体颜色 */
+  border-bottom: 6rpx solid black; /* 选中时显示红色下划线 */
+}
+
+.content{
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+}
+
+/* 订单卡片样式 */
+.order-card {
+  background-color: #fffcf7;
+  border-radius: 36rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.order-info {
+  margin-bottom: 30rpx;
+}
+
+.order-date {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  font-size: 34rpx;
+}
+
+.date {
+  font-size: 32rpx;
+  color: #3e2723; /* 深棕色 */
+}
+
+.status{
+  font-size: 34rpx;
+  color: #866f46;
+}
+
+.ticket-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.price {
+  color: #3e2723;
+}
+
+.total {
+  text-align: right;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #3e2723;
+}
+
+.order-footer {
+  font-size: 34rpx;
+  border-top: 2rpx solid #8f7845;
+  padding-top: 30rpx;
+}

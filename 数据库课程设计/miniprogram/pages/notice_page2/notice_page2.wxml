@@ -1,0 +1,34 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <image class="back-icon" src="/assets/images/notice/back.png" bindtap="handleBackClick"></image>
+    <text class="navbar-title">公告</text>
+  </view>
+  <view class="top-content">
+    <!-- 标题 -->
+    <text class="title">故宫博物馆关于优化分时段预约参观的公告</text>
+
+    <!-- 时间 -->
+    <view class="date-time-container">
+      <text class="date-time">2024年03月13日 下午16:53</text>
+    </view>
+  </view>
+  <!-- 页面主要内容 -->
+  <view class="main-content">
+    <!-- 图片 -->
+    <view class="image">
+      <image class="info-image" src="/assets/images/home/slide2.png" mode="widthFix"></image>
+    </view>
+
+    <!-- 正文 -->
+    <text class="content">
+      为确保故宫文物的真实完整保护，同时营造观众检票入院和参观过程的良好秩序，故宫博物院将于2023年11月1日起优化分时段预约及检票措施以下信息请广大观众知悉
+      1.订票信息:故宫博物院每日预约分为上午,下午两个时段。请在“故宫博物院”微信小程序按时间段预约。
+      2.检票信息:预约上午时段的观众最迟检票时间为当日12:00，预约下午时段的观众最早检票时间为当日11:00。请按照您的预约时间来院，以免无法检票入院，影响参观游览活动，
+      3.更多《订票须知》信息详见购票约展官方渠道:“故宫博物院”微信小程序，或咨询客服电话400-950-1925.
+    </text>
+    <text class="signature">故宫博物院</text>
+    <text class="signature-time">2023年10月24日</text>
+
+  </view>
+</view>

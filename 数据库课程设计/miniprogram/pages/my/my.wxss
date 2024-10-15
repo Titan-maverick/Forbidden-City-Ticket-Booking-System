@@ -1,0 +1,407 @@
+.container {
+  padding: 0rpx !important;
+}
+
+.top-show {
+  width: 100%;
+  height: 360rpx;
+}
+.top-show-img {
+    width: 100%;
+    height: 100%;
+}
+
+
+.bottom-show {
+  margin: 0 16rpx;
+}
+  .section {
+    background-color: #f8f3e8;
+    border-radius: 20rpx;
+    padding: 20rpx;
+  }
+
+  .user-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -86rpx;
+    color: #999;
+  }
+  .avatar-container {
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 20rpx;
+    width: 350rpx; /* 增大容器宽度 */
+    height: 150rpx; /* 增大容器高度 */
+  }
+  
+  .avatar-container image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; /* 确保头像是圆形 */
+  }
+  
+
+.ellipsis {
+        display: flex;
+        flex-direction: column;
+        font-size: 42rpx;
+        color: black;
+        white-space: nowrap;
+        margin-left: 20rpx;
+        font-weight: bold; /* 使用 bold 来加粗 */
+        font-family:'Courier New', Courier, monospace;
+  }
+
+
+.phone-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  margin-left: 10rpx;
+  border-bottom: 1rpx solid #c3b596;
+  margin-bottom: 30rpx;
+}
+
+.phone-label {
+  margin-top: 50rpx;
+  font-size: 33rpx;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 30rpx;
+}
+
+.phone-input {
+  flex-grow: 1;
+  height: 50rpx;
+  font-size: 33rpx;
+  border-radius: 5rpx;
+  padding: 0 10rpx;
+  margin-left: 30rpx;
+  color: rgb(100, 100, 100);
+  margin-top: 30rpx;
+}
+
+
+.finish-button {
+  font-size: 33rpx;
+  width: 170rpx;
+  background-color: #f8f3e8;
+  color: #8f7845;
+  border: none;
+  margin-right: 0rpx;
+  white-space: nowrap;
+  margin-top: 20rpx;
+}
+
+.ticket-balance-section {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 20rpx;
+  margin-left: 10rpx;
+  border-bottom: 2rpx solid #8f7845;
+}
+
+.balance-label {
+  font-size: 33rpx;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 30rpx;
+}
+
+.Space {
+  flex-grow: 1;
+  height: 50rpx;
+  border-radius: 5rpx;
+  padding: 0 10rpx;
+  margin-left: 30rpx;
+}
+
+.query-balance-button {
+  font-size: 33rpx;
+  width: 170rpx;
+  background-color: #f8f3e8;
+  color: #8f7845;
+  margin-right: 0rpx;
+  white-space: nowrap;
+  border: none;
+}
+
+
+/* 常用观众标题 */
+.frequent-visitors-title{
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  margin-left: 10rpx;
+  font-size: 45rpx;
+  color: #333;
+  font-weight: 900;
+}
+
+/* 常用观众信息 */
+.audience-button {
+  display: flex;
+  justify-content: space-between; /* 使内容在按钮内两端对齐 */
+  flex-direction: column; /* 姓名在上，身份证号在下 */
+  align-items: flex-start; /* 左对齐 */
+  background-color: #f8f3e8; /* 按钮背景色 */
+  padding: 15rpx; /* 内边距 */
+  margin-bottom: 10rpx; /* 每个按钮之间的间距 */
+  border-bottom:  1rpx solid #8f7845;
+}
+
+.audience-name {
+  font-size: 32rpx; /* 姓名字体大小 */
+  color: rgb(0, 0, 0);
+}
+
+.audience-id-card {
+  font-size: 26rpx; /* 身份证号字体大小 */
+  color: rgb(77, 76, 76); /* 身份证号颜色 */
+}
+
+.arrow {
+  position: absolute; /* 设置绝对定位 */
+  right: 10rpx; /* 距离右边的距离 */
+  top: 50%; /* 垂直居中 */
+  transform: translateY(-50%); /* 精确居中 */
+  font-size: 33rpx; /* 箭头字体大小 */
+  color: #333; /* 箭头颜色 */
+}
+
+.favorite-viewers-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* 确保父容器占满可用宽度 */
+}
+
+.favorite-viewers-title {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.add-favorite-button {
+  text-align: center;
+  display: inline-block;
+  /* 确保按钮是块级元素 */
+  white-space: nowrap;
+  /* 禁止换行 */
+  margin-top: 50rpx;
+  font-size: 35rpx;
+  background-color: #f8f3e8;
+  color: #8f7845;
+  border: inherit;
+  border-radius: 5rpx;
+  border: 1rpx solid #000;
+  padding-inline-start: 200rpx;
+  padding-inline-end: 200rpx;
+}
+
+
+/* 保存观众信息的浮窗 */
+.popup {
+  position: fixed;
+  bottom: 200; /* 设置底部为 0 */
+  left: 0;
+  right: 0;
+  background-color: #f8f3e8;
+  padding: 40px; /* 增加内边距 */
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+  transform: translateY(100%);
+  height: 300px; /* 设置浮窗高度 */
+  z-index: 9999; /* 设置 z-index 确保在最上层 */
+}
+
+.popup-content {
+  flex: 1; /* 让内容占满剩余空间 */
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* 让内容占满浮窗 */
+}
+
+.popup:visible {
+  transform: translateY(0);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px; /* 距离顶部10px */
+  right: 20px; /* 距离右侧10px */
+  font-size: 30px; /* 字体大小 */
+  cursor: pointer; /* 鼠标悬停时显示为指针 */
+  z-index: 10000; /* 确保关闭按钮在最上层 */
+}
+
+.popup-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 2rpx solid #8f7845;
+}
+.input-label {
+  width: 80px; /* 提示文本的宽度 */
+  font-size: unset;
+  font-weight: 500;
+}
+
+/* 编辑观众和新增观众界面的按钮 */
+.delete-button{
+  margin-top: 100px; /* 按钮顶部间距 */
+  text-align: center;
+  display: inline-block;
+  /* 确保按钮是块级元素 */
+  white-space: nowrap;
+  /* 禁止换行 */
+  font-size: 35rpx;
+  background-color: #f8f3e8;
+  color: #6d4c0e;
+  border: inherit;
+  border-radius: 5rpx;
+  border: 1rpx solid #000;
+  padding-inline-start: 100rpx;
+  padding-inline-end: 100rpx;
+  cursor: not-allowed; /* 禁用状态鼠标样式 */
+}
+
+.save-button-rectify{
+  margin-top: 100px; /* 按钮顶部间距 */
+  text-align: center;
+  display: inline-block;
+  /* 确保按钮是块级元素 */
+  white-space: nowrap;
+  /* 禁止换行 */
+  font-size: 35rpx;
+  background-color: #e9deca;
+  color: white;
+  border: inherit;
+  border-radius: 5rpx;
+  border: 1rpx solid #000;
+  padding-inline-start: 100rpx;
+  padding-inline-end: 100rpx;
+  background-color: #956f31; /* 禁用状态背景色 */
+  cursor: not-allowed; /* 禁用状态鼠标样式 */
+}
+.save-button.disabled  {
+  margin-top: 90px; /* 按钮顶部间距 */
+  text-align: center;
+  display: inline-block;
+  /* 确保按钮是块级元素 */
+  white-space: nowrap;
+  /* 禁止换行 */
+  font-size: 35rpx;
+  background-color: #e9deca;
+  color: white;
+  border: inherit;
+  border-radius: 5rpx;
+  border: 1rpx solid #000;
+  padding-inline-start: 250rpx;
+  padding-inline-end: 250rpx;
+}
+.save-button{
+  margin-top: 90px; /* 按钮顶部间距 */
+  text-align: center;
+  display: inline-block;
+  /* 确保按钮是块级元素 */
+  white-space: nowrap;
+  /* 禁止换行 */
+  font-size: 35rpx;
+  background-color: #e9deca;
+  color: white;
+  border: inherit;
+  border-radius: 5rpx;
+  border: 1rpx solid #000;
+  padding-inline-start: 250rpx;
+  padding-inline-end: 250rpx;
+  background-color: #956f31; /* 禁用状态背景色 */
+  cursor: not-allowed; /* 禁用状态鼠标样式 */
+}
+
+/* 证件类型选择 */
+.type-item {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  margin-bottom: 30rpx; /* 适当的底部间距 */
+  border-bottom: 2rpx solid #8f7845;
+}
+.id-type{
+  font-size: 28rpx;
+  color: black;
+}
+/* picker 样式 */
+.picker {
+  flex: 1;
+  border-radius: 4rpx;
+  padding: 10rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 确保内容和箭头在两侧对齐 */
+  background-color: #f8f3e8;
+  width: 350rpx;
+  height: 30rpx;
+  margin-left: 35rpx;
+}
+.picker-arrow {
+  font-size: 36rpx;
+  color: black;
+}
+
+/* 手机号码输入界面 */
+.phone-number{
+  display:contents;
+  width: 650rpx;
+  background-color: #f8f3e8;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  font-size: larger;
+}
+/* 设置输入框样式 */
+.phone-number-input {
+  flex: 1; /* 输入框占据剩余空间 */
+  border-radius: 4rpx;
+  padding: 10rpx;
+  font-size: 28rpx;
+  margin-left: 30rpx;
+}
+.phone-save-left{
+  margin-bottom: 10rpx;
+}
+.error-message {
+  color: red;
+  font-size: 28rpx;
+  margin-top: 25rpx; /* 添加一些间距 */
+  margin-left: 50rpx; /* 添加一些间距 */
+  word-break: break-all; /* 确保长文本换行 */
+}
+.phone-save-button{
+  margin-top: 100px; /* 按钮顶部间距 */
+  text-align: center;
+  display: inline-block;
+  /* 确保按钮是块级元素 */
+  white-space: nowrap;
+  /* 禁止换行 */
+  font-size: 35rpx;
+  background-color: #e9deca;
+  color: white;
+  border: inherit;
+  border-radius: 5rpx;
+  border: 1rpx solid #000;
+  padding-inline-start: 150rpx;
+  padding-inline-end: 150rpx;
+  background-color: #956f31; /* 禁用状态背景色 */
+  cursor: not-allowed; /* 禁用状态鼠标样式 */
+}

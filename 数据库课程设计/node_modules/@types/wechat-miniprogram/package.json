@@ -1,0 +1,36 @@
+{
+    "name": "@types/wechat-miniprogram",
+    "version": "3.4.7",
+    "description": "TypeScript definitions for wechat-miniprogram",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/wechat-miniprogram",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Wechat Miniprogram",
+            "githubUsername": "wechat-miniprogram",
+            "url": "https://github.com/wechat-miniprogram"
+        },
+        {
+            "name": "SgLy",
+            "githubUsername": "SgLy",
+            "url": "https://github.com/SgLy"
+        },
+        {
+            "name": "TtTRz",
+            "githubUsername": "TtTRz",
+            "url": "https://github.com/TtTRz"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/wechat-miniprogram"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "f77523512309c1da739e6c8624da45623f417a4e81cfb5f01af2f3651e6f77e2",
+    "typeScriptVersion": "4.5",
+    "nonNpm": true
+}

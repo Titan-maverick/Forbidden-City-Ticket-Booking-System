@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>查询营业数据详情</title>
+    {% include 'system/common/header.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='system/admin/css/other/user.css') }}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* 表格样式优化 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #f1f1f1;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* 禁止标签换行 */
+        .layui-form-label {
+            white-space: nowrap;
+            margin-right: 15px;
+        }
+
+        .layui-input-inline {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="pear-container">
+
+{# 查询表单 #}
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="" method="get" id="user-query-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">起始日期</label>
+                <div class="layui-input-inline">
+                    <input type="date" name="start_date" class="layui-input" placeholder="选择起始日期">
+                </div>
+                <label class="layui-form-label">截止日期</label>
+                <div class="layui-input-inline">
+                    <input type="date" name="end_date" class="layui-input" placeholder="选择截止日期">
+                </div>
+
+                <label class="layui-form-label">时间段</label>
+                <div class="layui-input-inline">
+                    <select name="select_time" class="layui-input">
+                        <option value="全天">全天</option>
+                        <option value="上午">上午</option>
+                        <option value="下午">下午</option>
+                    </select>
+                </div>
+
+                <!-- 查询按钮 -->
+                <button type="submit" class="pear-btn pear-btn-md pear-btn-primary">
+                    <i class="layui-icon layui-icon-search"></i> 查询
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{# 售票数据表格 #}
+<div class="user-main user-collasped">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="user-table">
+                <thead>
+                    <tr>
+                        <th>起始日期</th>
+                        <th>截止日期</th>
+                        <th>时间段</th>
+                        <th>票型</th>
+                        <th>售卖量</th>
+                        <th>累计金额</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // 获取并展示数据
+    function fetchData() {
+        let formDataArray = $('#user-query-form').serializeArray(); // 获取表单数据
+        let formData = {}; // 创建一个对象来存储字段和值
+
+        // 将数组转换为对象
+        formDataArray.forEach(item => {
+            formData[item.name] = item.value;
+        });
+
+        // 检查日期是否为空
+        if (!formData['start_date'] || !formData['end_date']) {
+            alert('请选择起始日期和截止日期再查询。');
+            return; // 如果日期为空，阻止查询
+        }
+
+        console.log('传递的数据:', formData); // 打印整个表单数据对象
+
+        $.ajax({
+            url: '/system/business_data_detail/query', // 查询的后端接口
+            type: 'GET',
+            data: formData,
+            success: function(res) {
+                $('#user-table tbody').empty(); // 清空表格
+                console.log('后端返回的完整响应:', res);
+                // 遍历返回的售票数据
+                res.data.forEach(function(item) {
+                    var html = '<tr>';
+                    html += '<td>' + (item.start_date || '') + '</td>'; // 开始日期
+                    html += '<td>' + (item.end_date || '') + '</td>';   // 结束日期
+                    html += '<td>' + (item.select_time || '') + '</td>';
+                    html += '<td>' + (item.type_name || '') + '</td>';
+                    html += '<td>' + (item.total_ticket_count || 0) + '</td>';
+                    html += '<td>' + (item.total_ticket_amount || 0) + '</td>';
+                    html += '</tr>';
+                    $('#user-table tbody').append(html); // 动态添加行
+                });
+            },
+            error: function() {
+                alert('查询失败，请重试。');
+            }
+        });
+    }
+
+    // 提交查询表单时重新加载数据
+    $('#user-query-form').on('submit', function(e) {
+        e.preventDefault();
+        fetchData(); // 重新加载数据
+    });
+});
+</script>
+
+{% include 'system/common/footer.html' %}
+</body>
+</html>

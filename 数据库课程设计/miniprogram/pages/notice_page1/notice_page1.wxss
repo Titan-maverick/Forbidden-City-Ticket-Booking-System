@@ -1,0 +1,107 @@
+page {
+  background-color: #f8f3e8; /* 设置页面背景色 */
+}
+.container {
+  width: 100%;
+  background-color: #f8f3e8;
+}
+
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-weight: bold;
+  margin: 0; /* 去除外边距 */
+  padding: 0; /* 去除内边距 */
+  font-family: 'SimSun', '宋体', serif; 
+}
+
+.back-icon {
+  position: absolute;
+  top: 100rpx; /* 距离顶部 20rpx */
+  left: 20rpx; /* 距离左侧 20rpx */
+  width: 40rpx; /* 图标宽度 */
+  height: 40rpx; /* 图标高度 */
+}
+
+.navbar-title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.top-content {
+  margin-top: 300rpx; 
+  padding: 20rpx;
+  margin-top: 200rpx;
+}
+
+.main-content{
+  padding: 20rpx;
+  padding-left: 40rpx; /* 设置左边距以实现缩进 */
+  padding-right: 40rpx; /* 保证右边距一致 */
+}
+
+.title {
+  font-size: 45rpx;
+  font-weight:bold;
+  margin-bottom: 20rpx;
+  font-family: 'SimSun', '宋体', serif; 
+}
+.date-time{
+  font-size: 28rpx;
+  margin-bottom: 20rpx;
+  color: gray;
+}
+
+.image {
+  display: flex; /* 使用 flex 布局 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  width: 100%; /* 宽度占满 */
+  height: auto; /* 高度自动，根据内容调整 */
+}
+
+.info-image {
+  max-width: 100%; /* 图片宽度最大为容器宽度 */
+  max-height: 100%; /* 图片高度最大为容器高度 */
+  object-fit: contain; /* 保持图片比例 */
+  border-radius: 20rpx; /* 设置圆角半径 */
+  overflow: hidden; /* 隐藏超出圆角的部分 */
+}
+
+.title-container{
+  display: flex;
+  justify-content: center; /* 居中对齐 */
+  margin-bottom: 0rpx; /* 添加底部间距 */
+}
+
+.sub-title{
+  font-size: 45rpx;
+  font-weight:bold;
+  margin-bottom: 20rpx;
+  font-family: 'SimSun', '宋体', serif; 
+}
+
+.content {
+  font-size: 32rpx;
+  margin-top: 30rpx; /* 保留顶边距 */
+  text-align: center; /* 内容居中对齐 */
+  text-indent: 40rpx; /* 设置缩进值，调整缩进距离 */
+  white-space:pre-wrap; /* 保持空格和换行符 */
+}
+
+.items-image {
+  max-width: 100%; /* 图片宽度最大为容器宽度 */
+  max-height: 100%; /* 图片高度最大为容器高度 */
+  object-fit: contain; /* 保持图片比例，适应容器 */
+  border-radius: 20rpx; /* 设置圆角半径 */
+  overflow: hidden; /* 隐藏超出圆角的部分 */
+}
+

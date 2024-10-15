@@ -1,0 +1,350 @@
+page {
+  background-color: #f8f3e8;
+  /* 设置页面背景色 */
+}
+
+.container {
+  width: 100%;
+  background-color: #f8f3e8;
+}
+
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-weight: bold;
+  margin: 0;
+  /* 去除外边距 */
+  padding: 0;
+  /* 去除内边距 */
+  font-family: 'SimSun', '宋体', serif;
+}
+
+.back-icon {
+  position: absolute;
+  top: 100rpx;
+  /* 距离顶部 20rpx */
+  left: 20rpx;
+  /* 距离左侧 20rpx */
+  width: 40rpx;
+  /* 图标宽度 */
+  height: 40rpx;
+  /* 图标高度 */
+}
+
+.navbar-title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 订单卡片样式 */
+.order-card {
+  margin-top: 20rpx;
+  background-color: #fffcf7;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-top: 200rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.title {
+  font-size: 45rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  font-family: 'SimSun', '宋体', serif;
+  border-bottom: 2rpx solid #8f7845;
+}
+
+.title-date {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  font-family: 'SimSun', '宋体', serif;
+}
+
+/* 按钮组样式 */
+.date-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+
+}
+
+/* 单个按钮样式 */
+.date-button {
+  position: relative;
+  /* 使 `.check-icon` 绝对定位 */
+  flex: 1 1 20%;
+  height: 170rpx;
+  /* 按钮高度 */
+  background-color: #f8f3e8;
+  /* 默认背景颜色 */
+  border: 1rpx solid #8f7845;
+  /* 默认边框 */
+  border-radius: 8rpx;
+  /* 圆角边框 */
+  margin: 10rpx;
+  /* 按钮间距 */
+  display: flex;
+  align-items: center;
+  /* 垂直居中对齐 */
+  justify-content: center;
+  /* 水平居中对齐 */
+  position: relative;
+  font-size: 24rpx;
+}
+
+.date-button.selected {
+  background-color: #ffffff;
+  /* 选中时背景颜色为白色 */
+  border-color: #8f7845;
+  /* 选中时边框颜色 */
+}
+
+
+.check-icon {
+  width: 30rpx;
+  /* 对勾图标宽度 */
+  height: 30rpx;
+  /* 对勾图标高度 */
+  position: absolute;
+  /* 绝对定位 */
+  top: 0rpx;
+  /* 从按钮顶部偏移距离 */
+  right: 0rpx;
+  /* 从按钮右侧偏移距离 */
+}
+
+.AMorPM{
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  font-family: 'SimSun', '宋体', serif;
+}
+
+.tickets_available{
+  position: absolute; /* 绝对定位 */
+  top:-3px; /* 距离顶部5px */
+  right: -3px; /* 距离右侧5px */
+  width: 20px; /* 设置宽度 */
+  height: 20px; /* 设置高度 */
+  border-radius: 10px; /* 圆角 */
+  color: #745004; /* 字体颜色为白色 */
+  display: flex; /* 使其为弹性盒模型 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  background-color: #e9dfc9;
+  padding: 0px 5px;
+}
+
+.time-menu {
+  margin-top: 20rpx;
+  background-color: #fffcf7;
+  display: flex;
+  justify-content: flex-start;
+  /* 确保按钮在一行水平居中排列 */
+  flex-direction: row;
+  /* 设置按钮横向排列 */
+}
+
+.time-button {
+  width: 140rpx;
+  height: 80rpx;
+  background-color: #f8f3e8;
+  border: 1rpx solid #8f7845;
+  border-radius: 8rpx;
+  margin: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 改为 flex-start 实现靠左对齐 */
+  padding-left: 20rpx; /* 增加左侧内边距，让内容不紧贴左边框 */
+  font-size: 28rpx;
+}
+
+
+.time-button.selected {
+  background-color: #ffffff;
+  border-color: #8f7845;
+}
+
+.ticket-menu {
+  margin-top: 30rpx;
+  text-align: center;
+}
+
+
+
+/* 结算栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f3e8;
+  border-top: 1rpx solid #e6e6e6;
+  display: flex;
+  justify-content: space-between; /* 使内容在左右两边对齐 */
+  align-items: center;
+  padding: 20rpx;
+  padding-right: 30rpx; /* 增加右侧内边距，确保按钮完全靠右 */
+  box-shadow: 0rpx -5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+  z-index: 1000; /* 确保结算栏位于最上层 */
+}
+
+/* 总计文本 */
+.total-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 确认按钮 */
+.confirm-button {
+  color: #fff;
+  border-radius: 8rpx;
+  padding: 0rpx 80rpx;
+  font-size: 32rpx;
+  position: fixed;
+  right: 0;
+  margin-right: 10rpx;
+}
+
+.total-count{
+  font-size: 52rpx;
+  color: #8f7845;
+  font-weight: bold;
+}
+
+.confirm-button.active {
+  background-color: #8f7845; /* 选中状态背景颜色 */
+}
+
+.confirm-button.inactive {
+  background-color: #e9deca; /* 非选中状态背景颜色 */
+}
+
+/* 购票界面 */
+.ticket-container {
+  background-color: #fffcf7;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 200rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.ticket-tips {
+  margin-bottom: 20rpx;
+  background-color: #fffcf7;
+  padding: 20rpx;
+  border-radius: 8rpx;
+}
+
+.ticket-tips-title {
+  font-size: 45rpx;
+  font-weight: bold;
+  font-family: 'SimSun', '宋体', serif;
+}
+
+.ticket-tips-content {
+  font-size: 25rpx;
+  color: rgba(100, 100, 100);
+  font-family: 'SimSun', '宋体', serif;
+  margin-top: 15rpx;
+}
+
+/* 购票小界面布局 */
+.ticket-item {
+  background-color: #fffcf7;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  border-bottom: 2rpx solid #8f7845;
+}
+
+/* 名称和价格的布局 */
+.name-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+  font-weight: 300;
+  margin-bottom: 10rpx; /* 增加间距 */
+}
+
+.left {
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 32rpx;
+  color: #8d6618;
+  font-weight: bold;
+}
+
+/* hint 和 stepper 在同一行的布局 */
+.hint-stepper-row {
+  display: flex;
+  justify-content: space-between; /* 左右对齐 */
+  align-items: center;
+  margin-top: 10rpx;
+  width: 100%; /* 确保占满宽度 */
+}
+
+.buy-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.hint {
+  font-size: 24rpx;
+  color: rgb(98, 98, 98);
+  margin-right: 20rpx; /* 适当增加右侧间距 */
+}
+
+
+/* 日历设置 */
+/* 自定义按钮间距 */
+.custom-calendar {
+  height: 100%; /* 设置日历组件的高度，根据需要调整 */
+  overflow: hidden; /* 确保内容不会溢出 */
+  background-color: #f8f3e8;
+  position: fixed; /* 固定定位 */
+  bottom: 0; /* 定位到页面底部 */
+  left: 0;
+  right: 0;
+}
+.custom-calendar .van-calendar{
+  height: 80%;
+  position: fixed; /* 固定定位 */
+  bottom: 0; /* 定位到页面底部 */
+  left: 0;
+  right: 0;
+}
+/* 自定义头部样式 */
+.custom-calendar .van-calendar__header {
+  background-color: #f8f3e8; /* 头部背景色 */
+  color: #333; /* 文字颜色 */
+}
+.custom-calendar .van-calendar__footer {
+  margin-bottom: 80px; /* 调整按钮区域的底部外边距 */
+}
+.custom-calendar .van-calendar__day--selected {
+  background-color: #6b480f; /* 选中日期的背景颜色 */
+  color: #fff; /* 选中日期的文字颜色 */
+}
+

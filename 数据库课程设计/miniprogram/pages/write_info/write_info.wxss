@@ -1,0 +1,277 @@
+page {
+  background-color: #f8f3e8;
+  /* 设置页面背景色 */
+}
+
+.container {
+  width: 100%;
+  background-color: #f8f3e8;
+}
+
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-weight: bold;
+  margin: 0;
+  /* 去除外边距 */
+  padding: 0;
+  /* 去除内边距 */
+  font-family: 'SimSun', '宋体', serif;
+}
+
+.back-icon {
+  position: absolute;
+  top: 100rpx;
+  /* 距离顶部 20rpx */
+  left: 20rpx;
+  /* 距离左侧 20rpx */
+  width: 40rpx;
+  /* 图标宽度 */
+  height: 40rpx;
+  /* 图标高度 */
+}
+
+.navbar-title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+/* 订单卡片样式 */
+.order-card {
+  margin-top: 20rpx;
+  background-color: #fffcf7;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-top: 200rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.title {
+  font-size: 45rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  font-family: 'SimSun', '宋体', serif;
+}
+
+.ticket-details{
+  display: flex;
+  justify-content: space-between; /* 将两侧的元素分别对齐 */
+  padding: 10rpx 0; /* 适当的内边距 */
+  font-size: 33rpx;
+  margin-bottom: 10rpx;
+  border-radius: 8rpx;
+}
+.ticket-count{
+  text-align: right; /* 确保文字在右边对齐 */
+  color: #666; /* 设置合适的颜色 */
+}
+
+.ticket-time{
+  font-size: 33rpx;
+  margin-top: 20rpx;
+  margin-bottom: 10rpx;
+  border-top: 2rpx solid #8f7845;
+}
+.ticket-time-tip{
+  font-size: 30rpx;
+}
+.ticket-category{
+  background-color: #f4ede3;
+  color: #8d7843;
+}
+
+.info-card{
+  margin-top: 20rpx;
+  background-color: #fffcf7;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+/* 确保 info-item 使用 flex 布局 */
+.info-item {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  margin-bottom: 20rpx; /* 适当的底部间距 */
+}
+
+.name-item {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  margin-bottom: 15rpx; /* 适当的底部间距 */
+  border-bottom: 2rpx solid #8f7845;
+}
+.type-item {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  margin-bottom: 15rpx; /* 适当的底部间距 */
+}
+.ID-item {
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  border-top: 2rpx solid #8f7845;
+}
+
+/* 设置姓名文本样式 */
+.audience-name .id-type .ID-number{
+  font-size: 28rpx;
+  color: black;
+}
+/* 设置输入框样式 */
+.info-input {
+  flex: 1; /* 输入框占据剩余空间 */
+  border-radius: 4rpx;
+  padding: 10rpx;
+  font-size: 28rpx;
+  margin-left: 30rpx;
+}
+/* picker 样式 */
+.picker {
+  flex: 1;
+  border-radius: 4rpx;
+  padding: 10rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 确保内容和箭头在两侧对齐 */
+  background-color: #fffcf7;
+  width: 350rpx;
+  height: 30rpx;
+  margin-left: 100rpx;
+}
+.picker-arrow {
+  font-size: 36rpx;
+  color: black;
+}
+/* 手机号码 */
+.phone-number{
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+  margin-top: 20rpx;
+  background-color: #fffcf7;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+/* 设置输入框样式 */
+.phone-number-input {
+  flex: 1; /* 输入框占据剩余空间 */
+  border-radius: 4rpx;
+  padding: 10rpx;
+  font-size: 28rpx;
+  margin-left: 30rpx;
+}
+.error-message {
+  color: red;
+  font-size: 24rpx;
+  margin-top: 5rpx; /* 添加一些间距 */
+  word-break: break-all; /* 确保长文本换行 */
+}
+
+
+
+/* 结算栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f3e8;
+  border-top: 1rpx solid #e6e6e6;
+  display: flex;
+  justify-content: space-between; /* 使内容在左右两边对齐 */
+  align-items: center;
+  padding: 20rpx;
+  padding-right: 30rpx; /* 增加右侧内边距，确保按钮完全靠右 */
+  box-shadow: 0rpx -5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+  z-index: 1000; /* 确保结算栏位于最上层 */
+}
+
+/* 总计文本 */
+.total-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 确认按钮 */
+.confirm-button {
+  color: #fff;
+  border-radius: 8rpx;
+  padding: 0rpx 80rpx;
+  font-size: 32rpx;
+  position: fixed;
+  right: 0;
+  margin-right: 10rpx;
+}
+
+.total-count{
+  font-size: 52rpx;
+  color: #8f7845;
+  font-weight: bold;
+}
+
+.confirm-button.active {
+  background-color: #8f7845; /* 选中状态背景颜色 */
+}
+
+.confirm-button.inactive {
+  background-color: #e9deca; /* 非选中状态背景颜色 */
+}
+
+
+.closeVisitorSelector{
+  background-color: #f8f3e8; /* 背景色 */
+  max-height: 25rpx; /* 最大高度 */
+}
+
+
+/* 常用观众选择框样式 */
+.visitor-selector-wrapper {
+  position: absolute; /* 使用绝对定位 */
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visitor-selector {
+  background-color: #f8f3e8;
+  width: 80%;
+  max-height: 70%;
+  overflow-y: auto;
+  padding: 20rpx;
+  border-radius: 10rpx;
+}
+
+.visitor-selector text {
+  display: block;
+  padding: 10rpx 0;
+  border-bottom: 1px solid #eee;
+}
+.visitor-item {
+  white-space: nowrap; /* 禁止换行 */
+}
+
+
+/* 可选：在按钮悬停时改变样式 */
+.close-button:hover {
+  background-color: #7a6740; /* 悬停时的背景颜色 */
+}

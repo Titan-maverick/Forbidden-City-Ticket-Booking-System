@@ -1,0 +1,178 @@
+<!--pages/info/info.wxml-->
+<view class="container">
+  <!-- 顶部展示图 -->
+  <view class="top-show">
+    <image mode="widthFix" class="top-show-img" src="/assets/images/background.png"></image>
+  </view>
+
+  <view class="bottom-show">
+    <!-- 未登录面板 -->
+    <view wx:if="{{ !is_login }}" class="user-container section" bindtap="toLogin">
+      <view class="avatar-container">
+        <image src="/assets/images/avatar.png"></image>
+        <view class="no-login">
+          <text class="ellipsis">请点击登录</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 登录以后得面板 -->
+    <view wx:if="{{is_login}}" class="user-container section">
+      <view class="avatar-container">
+        <image src="/assets/images/avatar_active.png"></image>
+        <view class="no-login">
+          <text class="ellipsis">微信用户</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 手机号填写及显示 -->
+    <view class="phone-section">
+      <text class="phone-label">手机号码</text>
+      <text class="phone-input">{{phoneNumber}}</text>
+      <view class="finish-button"  open-type="getPhoneNumber" bindtap="inputPhoneNumber"><text>{{phoneNumber === '待完善' ? '去完善' : '修改'}} ></text></view>
+    </view>
+
+    <!-- 年票余额显示及查询 -->
+    <view class="ticket-balance-section">
+      <text class="balance-label">年票余额</text>
+      <text class="Space"></text>
+      <view class="query-balance-button" bindtap="handleQueryBalance">去查询 ></view>
+    </view>
+
+
+<!-- 动态生成常用观众信息框 -->
+<view class="frequent-visitors">
+  <text class="frequent-visitors-title" wx:if="{{frequent_visitors.name_1 || frequent_visitors.name_2 || frequent_visitors.name_3 || frequent_visitors.name_4 || frequent_visitors.name_5}}">常用观众</text>
+  <view wx:key="index">
+
+    <view wx:if="{{frequent_visitors.name_5 && frequent_visitors.id_card_5}}" bindtap="editVisitor" data-index="5">
+      <button class="audience-button">
+        <text class="audience-name">{{frequent_visitors.name_5}}</text>
+        <text class="audience-id-card">{{idTypes[frequent_visitors.id_type_5]}}{{frequent_visitors.id_card_5}}<text class="arrow"> > </text></text>
+      </button>
+    </view>
+    <view wx:if="{{frequent_visitors.name_4 && frequent_visitors.id_card_4}}" bindtap="editVisitor" data-index="4">
+      <button class="audience-button">
+        <text class="audience-name">{{frequent_visitors.name_4}}</text>
+        <text class="audience-id-card">{{idTypes[frequent_visitors.id_type_4]}}{{frequent_visitors.id_card_4}}<text class="arrow"> > </text></text>
+      </button>
+    </view>
+    <view wx:if="{{frequent_visitors.name_3 && frequent_visitors.id_card_3}}" bindtap="editVisitor" data-index="3">
+      <button class="audience-button">
+        <text class="audience-name">{{frequent_visitors.name_3}}</text>
+        <text class="audience-id-card">{{idTypes[frequent_visitors.id_type_3]}} {{frequent_visitors.id_card_3}}<text class="arrow"> > </text></text>
+      </button>
+    </view>
+    <view wx:if="{{frequent_visitors.name_2 && frequent_visitors.id_card_2}}" bindtap="editVisitor" data-index="2">
+      <button class="audience-button">
+        <text class="audience-name">{{frequent_visitors.name_2}}</text>
+        <text class="audience-id-card">{{idTypes[frequent_visitors.id_type_2]}} {{frequent_visitors.id_card_2}}<text class="arrow"> > </text></text>
+      </button>
+    </view>
+    <view wx:if="{{frequent_visitors.name_1 && frequent_visitors.id_card_1}}" bindtap="editVisitor" data-index="1">
+      <button class="audience-button">
+        <text class="audience-name">{{frequent_visitors.name_1}}</text>
+        <text class="audience-id-card">{{idTypes[frequent_visitors.id_type_1]}} {{frequent_visitors.id_card_1}}<text class="arrow"> > </text></text>
+      </button>
+    </view>
+
+  </view>
+</view>
+
+
+
+
+    <!-- 新增常用观众按钮 -->
+    <view class="favorite-viewers-section">
+      <button class="add-favorite-button" bindtap="handleAddFavorite">新增常用观众</button>
+    </view>
+    <view style="height: 30rpx; background-color: #f8f3e8;"></view>
+  </view>
+
+   <!-- 手机号码填写界面 -->
+<view class="popup" wx:if="{{isphoneVisible}}">
+  <view class="popup-content">
+    <view class="close-button" bindtap="handleClosePopup"> x </view>
+    <text class="popup-title">手机号码填写</text>
+    
+  <!-- 手机号码输入框 -->
+  <view class="phone-number">
+  <text class="phone-save-left">手机号码</text>
+  <input class="info-input {{!phoneNumberValid && phoneNumber ? 'invalid' : ''}}" placeholder="用于接收订票信息" bindinput="handlePhoneInput"/>
+  </view>
+  <view wx:if="{{!phoneNumberValid && phoneNumber}}" class="error-message">
+    请输入正确的手机号
+  </view>
+    <button class="phone-save-button" bindtap="phoneSave">保存</button>
+  </view>
+</view>
+
+
+   <!-- 新增常用观众界面 -->
+  <view class="popup" wx:if="{{isPopupVisible}}">
+  <view class="popup-content">
+    <view class="close-button" bindtap="handleClosePopup"> x </view>
+    <text class="popup-title">新增观众</text>
+    
+    <view class="input-group">
+      <text class="input-label">姓名</text>
+      <input placeholder="请输入姓名" bindinput="handleNameInput" />
+    </view>
+    
+    <view class="type-item">
+  <text class="id-type">证件类型</text>
+  <picker mode="selector" range="{{idTypes}}" value="{{selectedIdTypeIndex}}" bindchange="handleIdTypeChange">
+    <view class="picker">
+      <text>{{idTypes[selectedIdTypeIndex]}}</text>
+      <text class="picker-arrow">></text> <!-- 添加箭头 -->
+    </view>
+  </picker>
+  </view>
+
+    <view class="input-group">
+      <text class="input-label">证件号码</text>
+      <input placeholder="请输入身份证号" bindinput="handleIdCardInput" />
+    </view>
+
+    <button class="save-button {{!isFormValid ? 'disabled' : ''}}" bindtap="handleSave">保存</button>
+  </view>
+</view>
+
+<!-- 修改观众界面 -->
+<view class="popup" wx:if="{{isRectifyVisible}}">
+  <view class="popup-content">
+    <view class="close-button" bindtap="handleClosePopup">x</view>
+    <text class="popup-title">编辑观众</text>
+    
+    <view class="input-group">
+      <text class="input-label">姓名</text>
+      <input value="{{currentName}}" bindinput="handleNameInput" />
+    </view>
+    
+<view class="type-item">
+  <text class="id-type">证件类型</text>
+  <picker mode="selector" range="{{idTypes}}" value="{{selectedIdTypeIndex}}" bindchange="handleIdTypeChange">
+    <view class="picker">
+      <text>{{idTypes[selectedIdTypeIndex]}}</text>
+      <text class="picker-arrow">></text> <!-- 添加箭头 -->
+    </view>
+  </picker>
+</view>
+
+    <view class="input-group">
+      <text class="input-label">证件号码</text>
+      <input value="{{currentIdCard}}" bindinput="handleIdCardInput" />
+    </view>
+
+    <view class="button-group" style="display: flex; justify-content: space-between;">
+    <button class="delete-button" bindtap="handleDelete">删除</button>
+    <button class="save-button-rectify {{!isFormValid ? 'disabled' : ''}}" bindtap="Rectify">保存</button>
+    </view>
+
+  </view>
+</view>
+
+
+
+</view>

@@ -1,0 +1,93 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <text class="navbar-title">支付</text>
+  </view>
+
+  <view class="title-card">
+    <!-- 订单内容 -->
+    <view class="info">
+      <view class="time">
+        <text>参观日期: {{ selectedDate }} {{selectedTime}}</text>
+      </view>
+      <view class="phone-number">
+        <text>联系方式: {{phoneNumber}}</text>
+      </view>
+    </view>
+
+    <!-- 结算栏 -->
+    <view class="bottom-bar">
+      <view class="total-text">总价￥ <text class="total-count">{{ totalPrice }}</text></view>
+      <button class="confirm-button" bindtap="goToPay">支付</button>
+    </view>
+  </view>
+
+  <view class="order-card">
+    <view class="order-info">
+      <view class="order-count">
+        <text class="count-title">订单信息</text>
+      </view>
+
+      <view class="detail">
+        <view class="ticket-info" wx:for="{{audienceList}}" wx:key="index">
+          <view>
+            <text>{{item.name}}</text>
+          </view>
+
+          <view class="ticket-detail">
+            <text>{{item.ticketType}} x 1 张</text>
+            <text>¥{{item.price}}</text>
+          </view>
+
+          <!-- 珍宝馆 -->
+          <view wx:if="{{item.isTreasureIslandSelected}}" class="ticket-detail">
+            <text>{{ticket_types[item.ticketId + 3].type_name}} x 1 张</text>
+            <text>¥{{ticket_types[item.ticketId + 3].price}}</text>
+          </view>
+
+          <!-- 钟表馆 -->
+          <view wx:if="{{item.isClockMuseumSelected}}" class="ticket-detail">
+            <text>{{ticket_types[item.ticketId + 7].type_name}} x 1 张</text>
+            <text>¥{{ticket_types[item.ticketId + 7].price}}</text>
+          </view>
+
+          <!-- 展览 -->
+          <view wx:if="{{item.isExhibitionSelected}}" class="ticket-detail">
+            <text>{{ticket_types[12].type_name}} x 1 张</text>
+            <text>¥{{ticket_types[12].price}}</text>
+          </view>
+
+          <!-- 计算小计 -->
+          <view class="total">
+            <text wx:if="{{!item.isTreasureIslandSelected && !item.isClockMuseumSelected}}">
+              小计 ¥{{ticket_types[item.ticketId - 1].price}}
+            </text>
+            <text wx:if="{{item.isTreasureIslandSelected && !item.isClockMuseumSelected}}">
+              小计 ¥{{ticket_types[item.ticketId - 1].price + ticket_types[item.ticketId + 3].price}}
+            </text>
+            <text wx:if="{{item.isClockMuseumSelected && !item.isTreasureIslandSelected}}">
+              小计 ¥{{ticket_types[item.ticketId - 1].price + ticket_types[item.ticketId + 7].price}}
+            </text>
+            <text wx:if="{{item.isTreasureIslandSelected && item.isClockMuseumSelected}}">
+              小计 ¥{{ticket_types[item.ticketId - 1].price + ticket_types[item.ticketId + 3].price + ticket_types[item.ticketId + 7].price}}
+            </text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="order-card">
+    <text class="count-title">开发票</text>
+  </view>
+
+  <view class="order-card">
+    <text class="count-title">检票须知</text>
+    <text class="tips-content">
+      观众<text class="red-tips-content">务必</text>携带预约时使用的有效证件原件由午门(故宫南门)检票入院。<text class="red-tips-content">预约上午时段的观众最迟检票时间为当日12:00，预约下午时段的观众最早检票时间为当日11:00。</text>请按照您的预约时间来院，以免无法检票入院，影响参观游览活动。
+    </text>
+  </view>
+
+  <!-- 添加额外的空白空间 -->
+  <view style="height: 200rpx; background-color: #f8f3e8;"></view>
+</view>

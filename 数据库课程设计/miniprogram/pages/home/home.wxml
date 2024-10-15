@@ -1,0 +1,51 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <text class="navbar-title">购票约展</text>
+  </view>
+  <!-- 轮播图 -->
+  <swiper class="swiper" indicator-dots="true" autoplay="true" interval="3000" duration="500" circular="true" indicator-active-color="#fff">
+    <block wx:for="{{swiperImages}}" wx:key="index">
+      <swiper-item bindtap="handleSwiperItemClick" data-page="{{item.page}}">
+        <image class="slide-image" src="{{item.src}}" mode="scaleToFill"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 页面主要内容 -->
+  <view class="main-content">
+    <!-- 公告条 -->
+    <view class="notice-bar" bindtap="handleNoticeClick">
+      <image class="sound-icon" src="/assets/images/home/notice_icon.png" bindtap="handleSoundClick" mode="aspectFit"></image>
+      <text class="notice-text">{{currentNotice}}</text>
+      <image class="arrow-right" src="/assets/images/home/arrow.png" bindtap="handleArrowClick" mode="aspectFit"></image>
+    </view>
+
+    <!-- 提示信息 -->
+    <view class="tips_1">
+      <text>故宫博物馆</text>
+    </view>
+
+    <view class="tips_2">
+      <text>旺季: 开馆时间08:30 | 停止检票时间16:00 | 闭馆时间17:00</text>
+    </view>
+
+
+    <view class="button">
+      <!-- 图片按钮 -->
+      <view class="image-button" bindtap="handleBuyClick">
+        <image class="button-image" src="/assets/images/home/ticket.png" mode="aspectFit"></image>
+      </view>
+
+      <view class="image-button_1" bindtap="handleYear_ticketClick">
+        <image class="button-image_1" src="/assets/images/home/year_ticket.png" mode="aspectFit"></image>
+      </view>
+    </view>
+
+
+    <view class="picture">
+      <image class="image-logo" src="/assets/images/home/logo.png" mode="aspectFit"></image>
+    </view>
+
+  </view>
+</view>

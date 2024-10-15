@@ -1,0 +1,13 @@
+{% macro memory_format(memory) %}
+    {%- if memory > 1024 ** 4 * 2 -%}
+        {{- (memory / 1024 ** 4) | round(2) -}}TB
+    {% elif memory > 1024 ** 3 * 2 %}
+        {{- (memory / 1024 ** 3) | round(2) -}}GB
+    {% elif memory > 1024 ** 2 * 2 %}
+        {{- (memory / 1024 ** 2) | round(2) -}}MB
+    {% elif memory > 1024 ** 1 * 2 %}
+        {{- (memory / 1024 ** 1) | round(2) -}}KB
+    {% else %}
+        {{- memory -}}B
+    {% endif %}
+{% endmacro %}

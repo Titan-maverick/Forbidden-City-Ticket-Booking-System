@@ -1,0 +1,81 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <image class="back-icon" src="/assets/images/notice/back.png" bindtap="handleBackClick"></image>
+    <text class="navbar-title">填写观众信息</text>
+  </view>
+
+  <!-- 订单信息部分 -->
+  <view class="order-card">
+    <view class="info">
+      <view class="title">
+        <text>门票信息</text>
+      </view> 
+      <view class="ticket-details" wx:for="{{ticketList}}" wx:key="ticketId" wx:if="{{item.count > 0}}">
+        <text>{{item.name}}</text>
+        <text class="ticket-count">X{{item.count}}张</text>
+      </view>
+      <view class="ticket-time">
+        <text>参观日期: {{ selectedDate }} {{selectedTime}}</text>
+      </view>
+      <view class="ticket-time-tip">
+        <text>请输入观众信息,每个订单最多5位观众(含未成年人)</text>
+      </view>
+    </view>
+    <view class="bottom-bar">
+      <view class="total-text">总计: <text class="total-count">{{ totalSelectedCount }}</text> 张</view>
+      <button class="confirm-button {{ allInputsFilled ? 'active' : 'inactive' }}" bindtap="confirmOrder">确认</button>
+    </view>
+  </view>
+
+  <!-- 观众信息部分 -->
+  <view class="info-card" wx:for="{{audienceList}}" wx:key="index">
+    <view class="audience-info">
+      <view class="info-item">
+        <text>观众{{ index + 1 }} <text class="ticket-category">{{item.ticketType}}</text></text>
+      </view>
+
+      <!-- 姓名输入框 -->
+      <view class="name-item" data-index="{{index}}" bindtap="showVisitorSelector">
+        <text class="audience-name">姓名</text>
+        <input class="info-input" placeholder="请输入" data-index="{{index}}" value="{{item.name}}" bindinput="handleNameInput" />
+      </view>
+
+      <!-- 弹出的常用观众选择框 -->
+      <view wx:if="{{isVisitorSelectorVisible && currentInputIndex === index}}" class="visitor-selector-wrapper" style="top: {{index * 360 + 800 + selectedTicketCount * 71}}rpx; right: 0rpx;">
+        <view class="visitor-selector">
+          <view wx:for="{{frequentVisitors}}" wx:key="index" data-visitor="{{item}}" bindtap="selectVisitor" class="visitor-item">
+            <text>{{item.name}} - {{item.id_card}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 证件类型选择 -->
+      <view class="type-item">
+        <text class="id-type">证件类型</text>
+        <picker mode="selector" range="{{idTypes}}" value="{{item.selectedIdTypeIndex}}" data-index="{{index}}" bindchange="handleIdTypeChange">
+          <view class="picker">
+            <text>{{idTypes[item.selectedIdTypeIndex]}}</text>
+            <text class="picker-arrow">></text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 证件号码输入框 -->
+      <view class="ID-item">
+        <text class="ID-number">证件号码</text>
+        <input class="info-input" placeholder="请输入" value="{{item.idNumber}}" data-index="{{index}}" bindinput="handleIdNumberInput" bindfocus="showVisitorSelector" />
+      </view>
+    </view>
+  </view>
+  
+  <!-- 手机号码输入框 -->
+  <view class="phone-number">
+    <text>手机号码</text>
+    <input class="info-input {{!phoneNumberValid && phoneNumber ? 'invalid' : ''}}" placeholder="用于接收订票信息" value="{{phoneNumber}}" bindinput="handlePhoneInput"/>
+    <view wx:if="{{!phoneNumberValid && phoneNumber}}" class="error-message">请输入正确的手机号</view>
+  </view>
+
+  <!-- 保持下方空白 -->
+  <view style="height: 500rpx; background-color: #f8f3e8;"></view>
+</view>

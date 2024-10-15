@@ -1,0 +1,128 @@
+<view class="container">
+  <!-- 自定义导航栏 -->
+  <view class="custom-navbar">
+    <image class="back-icon" src="/assets/images/notice/back.png" bindtap="handleBackClick"></image>
+    <text class="navbar-title">选择日期和数量</text>
+  </view>
+
+  <view class="order-card">
+    <view class="info">
+      <view class="title">
+        <text>故宫博物馆</text>
+      </view>
+      <view class="title-date">
+        <text>参观日期</text>
+      </view>
+    </view>
+
+    <view class="date-buttons">
+      <button class="date-button {{selectedDate === todayDate ? 'selected' : ''}}" bindtap="handleDateClick" data-date="{{todayDate}}">
+        <view class="button-content">
+          {{todayDate}}
+          <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{selectedDate === todayDate}}"></image>
+        </view>
+      </button>
+      <button class="date-button {{selectedDate === tomorrowDate ? 'selected' : ''}}" bindtap="handleDateClick" data-date="{{tomorrowDate}}">
+        <view class="button-content">
+          {{tomorrowDate}}
+          <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{selectedDate === tomorrowDate}}"></image>
+        </view>
+      </button>
+      <button class="date-button {{selectedDate === dayAfterTomorrowDate ? 'selected' : ''}}" bindtap="handleDateClick" data-date="{{dayAfterTomorrowDate}}">
+        <view class="button-content">
+          {{dayAfterTomorrowDate}}
+          <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{selectedDate === dayAfterTomorrowDate}}"></image>
+        </view>
+      </button>
+
+      <button class="date-button {{(isSpecifytime === true &&selectedDate != todayDate && selectedDate != tomorrowDate &&  selectedDate != dayAfterTomorrowDate && selectedDate != '') === true ? 'selected' : ''}}" bindtap="showCalendar">
+        <view class="button-content">
+          <text wx:if="{{isSpecifytime === false || selectedDate === todayDate || selectedDate === tomorrowDate || selectedDate === dayAfterTomorrowDate}}">指定日期</text>
+          <text wx:if="{{isSpecifytime === true &&selectedDate != todayDate && selectedDate != tomorrowDate &&  selectedDate != dayAfterTomorrowDate && selectedDate != ''}}"> {{selectedDate}}</text>
+          <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{isSpecifytime === true &&selectedDate != todayDate && selectedDate != tomorrowDate &&  selectedDate != dayAfterTomorrowDate && selectedDate != ''}}"></image>
+        </view>
+      </button>
+
+    </view>
+
+    <view class="title-date">
+      <text class="AMorPM">参观时间</text>
+    </view>
+    <view class="time-menu" wx:if="{{isDateSelected}}">
+      <button class="time-button {{selectedTime === '上午' ? 'selected' : ''}}" bindtap="selectAM">
+        <view class="button-content">
+          上午
+        <view class="tickets_available" wx:if="{{selectedTime != '上午'}}">{{morning_tickets_available > 999 ? '可订' : morning_tickets_available}}</view>
+          <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{selectedTime === '上午'}}"></image>
+        </view>
+      </button>
+      <button class="time-button {{selectedTime === '下午' ? 'selected' : ''}}" bindtap="selectPM">
+        <view class="button-content">
+          下午
+          <view class="tickets_available" wx:if="{{selectedTime != '下午'}}">{{afternoon_tickets_available > 999 ? '可订' : afternoon_tickets_available}}</view>
+          <image class="check-icon" src="/assets/images/check-icon.png" wx:if="{{selectedTime === '下午'}}"></image>
+        </view>
+      </button>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="total-text">总计: <text class="total-count">{{ totalSelectedCount }}</text> 张</view>
+    <button class="confirm-button {{ totalSelectedCount > 0 ? 'active' : 'inactive' }}" bindtap="confirmOrder">立即预订</button>
+  </view>
+</view>
+
+  <!-- 弹出的日历 -->
+  <van-popup show="{{showCalendarPopup}}" position="bottom" custom-style="height: 50%;">
+    <van-calendar
+      show="{{true}}"
+      min-date="{{minDate}}"
+      max-date="{{maxDate}}"
+      bind:confirm="onDateConfirm"
+      bind:cancel="onDateCancel"
+      class="custom-calendar"
+    />
+  </van-popup>>
+
+<view class="ticket-container" wx:if="{{isTimeSelected}}">
+  <view class="ticket-tips">
+    <view class="ticket-tips-title">
+      <text>选择票种</text>
+    </view>
+    <view class="ticket-tips-content">
+      <text>(每单限购5张，同一证件每个参观日仅能预约1张) 持残疾证或本市社会保障金领取证的人员，请提前致电客服联系办理。</text>
+    </view>
+  </view>
+
+  <view class="ticket-item" wx:for="{{ticketList}}" wx:key="ticketId">
+  <van-cell-group border="{{false}}">
+    <!-- 名称和价格一行显示 -->
+    <view class="name-price-row">
+      <view class="left">
+        <text>{{item.name}}</text>
+      </view>
+      <view class="price">¥{{item.price}}</view>
+    </view>
+
+    <!-- hint 和 stepper 在同一行显示 -->
+    <view class="hint-stepper-row">
+      <text class="hint">{{item.hint}}</text>
+      <view class="buy-btn">
+        <van-stepper
+          min="0"
+          max="{{5 - totalSelectedCount + item.count}}"
+          integer
+          value="{{item.count}}"
+          data-id="{{item.ticketId}}"
+          bindchange="changeTicketNum"
+        />
+      </view>
+    </view>
+  </van-cell-group>
+</view>
+
+
+
+</view>
+
+<view style="height: 20rpx; background-color: #f8f3e8;"></view>

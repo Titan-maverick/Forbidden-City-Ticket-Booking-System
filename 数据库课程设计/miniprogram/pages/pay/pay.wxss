@@ -1,0 +1,208 @@
+page {
+  background-color: #f8f3e8; /* 设置页面背景色 */
+}
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-weight: bold;
+  margin: 0; /* 去除外边距 */
+  padding: 0; /* 去除内边距 */
+}
+
+.container {
+  width: 100%;
+  margin: 0; /* 去除外边距 */
+  padding: 0; /* 去除内边距 */
+}
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: black;
+  width: 100%;
+  height: 240rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-weight: bold;
+  margin: 0;
+  /* 去除外边距 */
+  padding: 0;
+  /* 去除内边距 */
+  font-family: 'SimSun', '宋体', serif;
+}
+
+.back-icon {
+  position: absolute;
+  top: 100rpx;
+  /* 距离顶部 100rpx */
+  left: 20rpx;
+  /* 距离左侧 20rpx */
+  width: 40rpx;
+  /* 图标宽度 */
+  height: 40rpx;
+  /* 图标高度 */
+}
+.title-card {
+  background-color: #fffcf7;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 10rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-top: 200rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+.time, .phone-number {
+  font-size: 33rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+/* 结算栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f3e8;
+  border-top: 1rpx solid #e6e6e6;
+  display: flex;
+  justify-content: space-between; /* 使内容在左右两边对齐 */
+  align-items: center;
+  padding: 20rpx;
+  padding-right: 30rpx; /* 增加右侧内边距，确保按钮完全靠右 */
+  box-shadow: 0rpx -5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 20rpx;
+  z-index: 1000; /* 确保结算栏位于最上层 */
+}
+
+/* 总计文本 */
+.total-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 确认按钮 */
+.confirm-button {
+  background-color: #8f7845; /* 选中状态背景颜色 */
+  color: #fff;
+  border-radius: 8rpx;
+  padding: 0rpx 80rpx;
+  font-size: 32rpx;
+  position: fixed;
+  right: 0;
+  margin-right: 10rpx;
+}
+
+.total-count {
+  font-size: 52rpx;
+  color: #8f7845;
+  font-weight: bold;
+}
+
+
+.content{
+  margin-top: 180rpx;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+}
+.status-title{
+  font-size:x-large;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+}
+/* 订单卡片样式 */
+.order-card {
+
+  background-color: #fffcf7;
+  border-radius: 26rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0rpx 5rpx 10rpx rgba(0, 0, 0, 0.1);
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.order-info {
+  margin-bottom: 30rpx;
+}
+
+.order-count {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.count-title{
+  font-size:x-large;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+}
+
+.date {
+  font-size: 32rpx;
+  color: #3e2723; /* 深棕色 */
+}
+
+.status{
+  color: #866f46;
+}
+.money-count{
+  font-size: x-large;
+}
+.detail{
+  border-top: 2rpx solid #8f7845;
+}
+
+.ticket-info {
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: column; /* 每个票项换行 */
+}
+
+.ticket-detail {
+  display: flex; /* 使用 flexbox 布局 */
+  justify-content: space-between; /* 使内容靠两边对齐 */
+  width: 100%; /* 确保占满整个宽度 */
+  margin-top: 5rpx; /* 添加适当的上边距 */
+  color: #7a7a79;
+}
+
+.total {
+  text-align: right;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #3e2723;
+}
+
+.order-footer {
+  font-size: 34rpx;
+  border-top: 2rpx solid #8f7845;
+  padding-top: 30rpx;
+}
+
+.tips-content {
+  color:#5d5d5c;
+  font-size: 32rpx;
+  margin-top: 30rpx; /* 保留顶边距 */
+  text-align: center; /* 内容居中对齐 */
+}
+
+.red-tips-content{
+  color: red;
+  font-size: 32rpx;
+  margin-top: 30rpx; /* 保留顶边距 */
+  text-align: center; /* 内容居中对齐 */
+}
