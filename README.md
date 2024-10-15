@@ -183,30 +183,16 @@ djangoProject
 
 
 ## 项目配置？
-```
-
 #### 修改配置
-
-```python
-.env
+```
+GugongAdministrator/pear-admin-flask/applications/config.py
+```
 # MySql配置信息
-MYSQL_HOST=127.0.0.1
-MYSQL_PORT=3306
-MYSQL_DATABASE=PearAdminFlask
-MYSQL_USERNAME=root
-MYSQL_PASSWORD=root
-
-# Redis 配置
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6379
-
+请先创建数据库, 并用Django orm架构命令生成,然后在这里配置你本地的MySQL,
 # 密钥配置
-SECRET_KEY='pear-admin-flask'
 
 # 邮箱配置
-MAIL_SERVER='smtp.qq.com'
-MAIL_USERNAME='123@qq.com'
-MAIL_PASSWORD='XXXXX' # 生成的授权码
+
 ```
 
 ## 如何快速上手这个项目？
