@@ -102,7 +102,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "museum",
         "USER": "root",
-        "PASSWORD": "niuzeyu123",
+        "PASSWORD": " ",  # 修改为你的密码
         "HOST": "127.0.0.1",
         "PORT":  3306,
     }
