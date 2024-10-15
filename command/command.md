@@ -1,7 +1,9 @@
 ### Django后端, 启动!
+'''
 cd "E:\Project\pycharm project\gugong_Django\djangoProject"
-python manage.py runserver 8000
 
+python manage.py runserver 8000
+'''
 ### 将端口内网穿透到公网
 ngrok config add-authtoken 您的密钥
 ngrok http --domain=bass-epic-mentally.ngrok-free.app 8000  # 免费的
