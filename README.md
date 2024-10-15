@@ -218,18 +218,17 @@ pip install -r requirements.txt
 
 
 ### 如何启动项目
-GugongAdministrator直接运行app.py
+
+#### 后端
 djangoProject用command内的命令在终端启动
 ##### 内网穿透
-推荐ngork
-
-
-#### 运行项目
-
-```bash
-
-```
-
+推荐ngork, [链接](https://ngrok.com/).
+[教学]([https://ngrok.com/](https://blog.csdn.net/sinat_41034328/article/details/134026644/)).
+获得密钥, 将djangoProject启动采用的端口号设置到公网
+#### 前端
+用微信开发工具打卡数据库课程设计文件,直接编译,在调试窗口进行操作
+#### 管理员平台
+GugongAdministrator直接运行app.py
 
 
 #### 预览项目
