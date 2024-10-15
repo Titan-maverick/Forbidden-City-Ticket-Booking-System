@@ -15,7 +15,6 @@
   <img width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/project_exhibit.png" alt="项目展示" />
 </div>
 
-
 **请您点个 Star 多谢！🎉**
 ## 项目背景
 
@@ -39,8 +38,7 @@
 4. 系统生成订单, 用户可以在订单界面进行查看订单详情功能。
 #### 管理员:
 1. 从后台找到对应的界面,进行查找和修改
-## 项目展示
-![项目展示图片](链接到项目展示的图片)
+## 项目目录
 
 ####  整个项目结构
 
@@ -58,7 +56,6 @@
 
 ```
 ####  GugongAdministrator/pear-admin-flask项目结构
-
 ```
 GugongAdministrator/pear-admin-flask
 ├─applications  # 应用
