@@ -188,7 +188,7 @@ djangoProject
 ```
 GugongAdministrator/pear-admin-flask/applications/config.py
 ```
-请先创建数据库, 并用Django orm架构命令生成,然后在这里配置你本地的MySQL,请根据注释修改对应的值
+请先创建数据库, 并用 Django orm 架构命令生成,然后在这里配置你本地的 MySQL ,请根据注释修改对应的值
 
 #### Django配置信息
 ```
@@ -207,14 +207,14 @@ project.config.json里面输入你的appid
 ```
 git clone https://github.com/Titan-maverick/Forbidden-City-Ticket-Booking-System.git
 ```
-或者直接下载zip, 然后GugongAdministrator,djangoProject用支持python的编译器打开(pycharm), 数据库课程设计用微信开发工具打开
+或者直接下载zip, 然后 GugongAdministrator,djangoProject 用支持 python 的编译器打开(pycharm), 数据库课程设计 用 微信开发工具 打开
 ##### 配置环境
 GugongAdministrator,djangoProject
 ```
 pip install -r requirements.txt
 ```
 ##### 配置数据库
-用MySQL_database文件夹下面的数据库创建与删除.sql创建数据库,然后配置好djangoProject,最后用command.md里面的三,四条命令对表进行构建
+用 MySQL_database 文件夹下面的 数据库创建与删除.sql 创建数据库,然后配置好 djangoProject ,最后用 command.md 里面的第三, 四条命令对表进行构建
 
 
 ### 如何启动项目
