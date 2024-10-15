@@ -1,0 +1,16 @@
+DROP DATABASE museum;
+
+CREATE DATABASE museum;
+
+
+use museum;
+
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS FrequentVisitors;
+DROP TABLE IF EXISTS Orders;
+DROP TABLE IF EXISTS OrderDetails;
+DROP TABLE IF EXISTS TicketTypes;
+DROP TABLE IF EXISTS BookingRecords;
+DROP TABLE IF EXISTS TicketSalesData;
+
+
