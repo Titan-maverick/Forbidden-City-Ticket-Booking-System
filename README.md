@@ -243,12 +243,12 @@ GugongAdministrator直接运行app.py
 
 ### Django后端
 <div align="center">
-  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/django_run.png" />
+  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:0px;box-shadow: 2px 0 6px gray;" src="images/django_run.png" />
 </div>
 
 ### ngork
 <div align="center">
-  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:20px;box-shadow: 2px 0 6px gray;" src="images/ngork_run.png" />
+  <img  width="92%" style="border-radius:10px;margin-top:20px;margin-bottom:10px;box-shadow: 2px 0 6px gray;" src="images/ngork_run.png" />
 </div>
 
 ### 微信开发工具
