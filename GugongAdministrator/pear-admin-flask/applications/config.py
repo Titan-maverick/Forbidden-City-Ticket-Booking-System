@@ -39,9 +39,9 @@ class BaseConfig:
     SECRET_KEY = "GuGong_Administrator"
 
     # mysql 配置
-    MYSQL_DATABASE = "museum"
-    MYSQL_USERNAME = "root"
-    MYSQL_PASSWORD = "niuzeyu123"
+    MYSQL_DATABASE = "museum"  # 数据库名
+    MYSQL_USERNAME = "root"  #  你的用户名
+    MYSQL_PASSWORD = " "  # 密码
     MYSQL_HOST = "127.0.0.1"
     MYSQL_PORT = 3306
 
@@ -58,8 +58,8 @@ class BaseConfig:
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
     MAIL_PORT = 465
-    MAIL_USERNAME = '2268076266@qq.com'
-    MAIL_PASSWORD = 'tjluxurekbrgeadc'  # 生成的授权码
+    MAIL_USERNAME = ''  # qq邮箱即可
+    MAIL_PASSWORD = ' '  # qq邮箱生成的授权码
     MAIL_DEFAULT_SENDER = MAIL_USERNAME
 
     # 插件配置，填写插件的文件名名称，默认不启用插件。
