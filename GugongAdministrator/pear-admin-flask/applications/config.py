@@ -36,7 +36,7 @@ class BaseConfig:
     # JSON配置
     JSON_AS_ASCII = False
 
-    SECRET_KEY = "GuGong_Administrator"
+    SECRET_KEY = "GuGong_Administrator"  # 这里更换你的密钥
 
     # mysql 配置
     MYSQL_DATABASE = "museum"  # 数据库名
