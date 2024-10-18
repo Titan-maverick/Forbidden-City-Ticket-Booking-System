@@ -228,6 +228,7 @@ djangoProject用command内的命令在终端启动
 用微信开发工具打卡数据库课程设计文件,直接编译,在调试窗口进行操作
 [平台链接]([https://ngrok.com/](https://mp.weixin.qq.com/)).
 #### 管理员平台
+##### 测试账号:  用户名: admin  密码: your_new_password
 GugongAdministrator直接运行app.py
 
 
