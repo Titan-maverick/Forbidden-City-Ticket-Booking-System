@@ -836,7 +836,7 @@ class RefundView(View):
             return JsonResponse({'error': '请求体格式错误'}, status=400)
 
 
-# 获取可用余票
+# 获取故宫可用余票
 @method_decorator(csrf_exempt, name='dispatch')
 class AvailableTicketsView(View):
     def post(self, request):
@@ -885,7 +885,7 @@ class AvailableTicketsView(View):
             return JsonResponse({'error': '该日期的票务信息不存在'}, status=404)
 
 
-# 获取其他可用余票
+# 获取其他馆可用余票
 @method_decorator(csrf_exempt, name='dispatch')
 class OtherAvailableTicketsView(View):
     def post(self, request):
